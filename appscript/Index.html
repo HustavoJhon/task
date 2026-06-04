@@ -1,0 +1,199 @@
+-4 flex justify-between items-center">
+    <div class="flex items-center space-x-2">
+      <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00CEFE] to-[#00417B] flex items-center justify-center">
+        <i class="fa-solid fa-building-columns text-white text-xl"></i>
+      </div>
+      <span class="font-playfair text-xl font-bold">Hotel<span class="text-[#00CEFE]">MS</span></span>
+    </div>
+    
+    <div class="hidden md:flex space-x-8">
+      <a href="#inicio" class="hover:text-[#00CEFE] transition-colors">Inicio</a>
+      <a href="#habitaciones" class="hover:text-[#00CEFE] transition-colors">Habitaciones</a>
+      <a href="#nosotros" class="hover:text-[#00CEFE] transition-colors">Nosotros</a>
+      <a href="#equipo" class="hover:text-[#00CEFE] transition-colors">Equipo</a>
+      <a href="#galeria" class="hover:text-[#00CEFE] transition-colors">Galería</a>
+      <a href="#contacto" class="hover:text-[#00CEFE] transition-colors">Contacto</a>
+    </div>
+    
+    <div class="flex items-center space-x-3">
+      <button onclick="window.location.href='?page=Login'" class="px-4 py-2 rounded-lg border border-[#00CEFE] text-[#00CEFE] hover:bg-[#00CEFE] hover:text-white transition-all cursor-pointer">
+        <i class="fa-solid fa-right-to-bracket mr-2"></i>Ingresar
+      </button>
+      <button onclick="window.location.href='?page=Login'" class="btn-primary px-5 py-2 rounded-lg text-white font-semibold hidden md:block">
+        <i class="fa-solid fa-calendar-check mr-2"></i>Reservar
+      </button>
+      <button id="mobileMenuBtn" class="md:hidden text-2xl"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+  
+  <div id="mobileMenu" class="hidden md:hidden bg-gray-900 border-t border-gray-800">
+    <div class="flex flex-col p-4 space-y-3">
+      <a href="#inicio" class="hover:text-[#00CEFE] py-2">Inicio</a>
+      <a href="#habitaciones" class="hover:text-[#00CEFE] py-2">Habitaciones</a>
+      <a href="#nosotros" class="hover:text-[#00CEFE] py-2">Nosotros</a>
+      <a href="#equipo" class="hover:text-[#00CEFE] py-2">Equipo</a>
+      <a href="#galeria" class="hover:text-[#00CEFE] py-2">Galería</a>
+      <a href="#contacto" class="hover:text-[#00CEFE] py-2">Contacto</a>
+      <button onclick="window.location.href='?page=Login'" class="btn-primary py-2 rounded-lg mt-2">Reservar Ahora</button>
+    </div>
+  </div>
+</nav>
+
+<section id="inicio" class="hero-section flex items-center justify-center relative">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container mx-auto px-4 relative z-10 text-center">
+    <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-6" style="animation: fadeUp 0.6s ease forwards; opacity: 0;">
+      Bienvenido al<br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00CEFE] to-[#A255FF]">Hotel Management System</span>
+    </h1>
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-8" style="animation: fadeUp 0.6s ease 0.1s forwards; opacity: 0;">
+      Experiencia de lujo con tecnología de vanguardia. Disfruta de nuestras instalaciones y servicios premium.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center" style="animation: fadeUp 0.6s ease 0.2s forwards; opacity: 0;">
+      <button onclick="window.location.href='?page=Login'" class="btn-primary px-8 py-3 rounded-xl text-white font-semibold flex items-center justify-center gap-2">
+        <i class="fa-solid fa-calendar-check"></i> Reservar Ahora
+      </button>
+      <button onclick="document.getElementById('habitaciones').scrollIntoView({ behavior: 'smooth' })" class="btn-outline-light px-8 py-3 rounded-xl text-white font-semibold flex items-center justify-center gap-2">
+        <i class="fa-solid fa-door-open"></i> Ver Habitaciones
+      </button>
+    </div>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-16 max-w-3xl mx-auto">
+      <div class="stat-card rounded-2xl p-4 text-center"><div class="text-3xl font-bold text-[#00CEFE]" id="statHabitaciones">120+</div><div class="text-sm text-gray-400">Habitaciones</div></div>
+      <div class="stat-card rounded-2xl p-4 text-center"><div class="text-3xl font-bold text-[#FFDF43]" id="statClientes">5000+</div><div class="text-sm text-gray-400">Clientes Felices</div></div>
+      <div class="stat-card rounded-2xl p-4 text-center"><div class="text-3xl font-bold text-[#EE2A6E]" id="statExperiencia">10+</div><div class="text-sm text-gray-400">Años de Experiencia</div></div>
+      <div class="stat-card rounded-2xl p-4 text-center"><div class="text-3xl font-bold text-[#A255FF]" id="statPremios">15+</div><div class="text-sm text-gray-400">Premios</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="habitaciones" class="py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12">
+      <span class="text-[#00CEFE] font-semibold tracking-wider">NUESTRAS HABITACIONES</span>
+      <h2 class="section-title mt-2">Estancias Exclusivas</h2>
+      <p class="text-gray-400 mt-4 max-w-2xl mx-auto">Diseñadas para ofrecerte el máximo confort y una experiencia inolvidable</p>
+    </div>
+    
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="room-card">
+        <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Habitación Simple</h3>
+          <p class="text-gray-400 text-sm mb-4">Perfecta para viajeros de negocios o estancias cortas</p>
+          <div class="flex justify-between items-center mb-4"><span class="text-2xl font-bold text-[#00CEFE]">S/ 120<span class="text-sm text-gray-400">/noche</span></span><span class="text-sm text-gray-400"><i class="fa-solid fa-user mr-1"></i> 1 persona</span></div>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-wifi mr-1"></i> WiFi</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-tv mr-1"></i> TV</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-snowflake mr-1"></i> A/C</span></div>
+          <button onclick="window.location.href='?page=Login'" class="w-full py-2 rounded-lg bg-gradient-to-r from-[#00CEFE] to-[#00417B] text-white font-semibold hover:opacity-90 transition">Reservar</button>
+        </div>
+      </div>
+      
+      <div class="room-card">
+        <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Habitación Doble</h3>
+          <p class="text-gray-400 text-sm mb-4">Ideal para parejas o amigos, con vistas espectaculares</p>
+          <div class="flex justify-between items-center mb-4"><span class="text-2xl font-bold text-[#00CEFE]">S/ 180<span class="text-sm text-gray-400">/noche</span></span><span class="text-sm text-gray-400"><i class="fa-solid fa-user-group mr-1"></i> 2 personas</span></div>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-wifi mr-1"></i> WiFi</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-tv mr-1"></i> TV</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-snowflake mr-1"></i> A/C</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-mug-hot mr-1"></i> Cafetera</span></div>
+          <button onclick="window.location.href='?page=Login'" class="w-full py-2 rounded-lg bg-gradient-to-r from-[#00CEFE] to-[#00417B] text-white font-semibold hover:opacity-90 transition">Reservar</button>
+        </div>
+      </div>
+      
+      <div class="room-card">
+        <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');"></div>
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-2">Suite Ejecutiva</h3>
+          <p class="text-gray-400 text-sm mb-4">Lujo y exclusividad para los huéspedes más exigentes</p>
+          <div class="flex justify-between items-center mb-4"><span class="text-2xl font-bold text-[#00CEFE]">S/ 350<span class="text-sm text-gray-400">/noche</span></span><span class="text-sm text-gray-400"><i class="fa-solid fa-user-group mr-1"></i> 2-4 personas</span></div>
+          <div class="flex flex-wrap gap-2 mb-4"><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-wifi mr-1"></i> WiFi</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-tv mr-1"></i> TV 65"</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-hot-tub mr-1"></i> Jacuzzi</span><span class="text-xs bg-gray-800 px-2 py-1 rounded"><i class="fa-solid fa-champagne-glasses mr-1"></i> Minibar</span></div>
+          <button onclick="window.location.href='?page=Login'" class="w-full py-2 rounded-lg bg-gradient-to-r from-[#00CEFE] to-[#00417B] text-white font-semibold hover:opacity-90 transition">Reservar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="nosotros" class="py-20 bg-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <span class="text-[#00CEFE] font-semibold tracking-wider">SOBRE NOSOTROS</span>
+        <h2 class="section-title mt-2 mb-4">Una Historia de Excelencia</h2>
+        <p class="text-gray-300 mb-6">Fundado en 2014, Hotel Management System nació con la visión de redefinir la experiencia hotelera combinando lujo, tecnología y calidez humana. Hoy somos un referente en hospitalidad, ofreciendo servicios de primera clase a viajeros nacionales e internacionales.</p>
+        <div class="grid gap-6 mt-8">
+          <div class="flex gap-4"><div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#00CEFE] to-[#00417B] flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-eye text-xl"></i></div><div><h3 class="font-bold mb-1">Misión</h3><p class="text-gray-400 text-sm">Ofrecer experiencias memorables mediante un servicio excepcional, instalaciones de primer nivel y tecnología innovadora.</p></div></div>
+          <div class="flex gap-4"><div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#A255FF] to-[#EE2A6E] flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-rocket text-xl"></i></div><div><h3 class="font-bold mb-1">Visión</h3><p class="text-gray-400 text-sm">Ser reconocidos como el hotel líder en innovación y calidad de servicio en Latinoamérica para 2030.</p></div></div>
+          <div class="flex gap-4"><div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#FFDF43] to-[#FF6139] flex items-center justify-center flex-shrink-0"><i class="fa-solid fa-heart text-xl"></i></div><div><h3 class="font-bold mb-1">Valores</h3><p class="text-gray-400 text-sm">Excelencia, Innovación, Calidez, Sostenibilidad y Compromiso con el huésped.</p></div></div>
+        </div>
+      </div>
+      <div class="relative"><div class="absolute -top-4 -left-4 w-32 h-32 bg-[#00CEFE] rounded-full opacity-20 blur-3xl"></div><div class="absolute -bottom-4 -right-4 w-48 h-48 bg-[#A255FF] rounded-full opacity-20 blur-3xl"></div><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Hotel" class="rounded-2xl shadow-2xl relative z-10"></div>
+    </div>
+  </div>
+</section>
+
+<section id="equipo" class="py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12"><span class="text-[#00CEFE] font-semibold tracking-wider">PROFESIONALES</span><h2 class="section-title mt-2">Nuestro Equipo</h2><p class="text-gray-400 mt-4 max-w-2xl mx-auto">Un grupo de profesionales apasionados por brindarte la mejor experiencia</p></div>
+    <div class="grid md:grid-cols-3 gap-8">
+      <div class="team-card"><div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[#00CEFE] to-[#00417B] flex items-center justify-center mb-4 text-4xl"><i class="fa-solid fa-user-tie"></i></div><h3 class="text-xl font-bold">Carlos Rodríguez</h3><p class="text-[#00CEFE] mb-3">Gerente General</p><div class="flex justify-center gap-3"><div class="social-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="social-icon"><i class="fa-brands fa-twitter"></i></div></div></div>
+      <div class="team-card"><div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[#A255FF] to-[#EE2A6E] flex items-center justify-center mb-4 text-4xl"><i class="fa-solid fa-user"></i></div><h3 class="text-xl font-bold">María González</h3><p class="text-[#A255FF] mb-3">Jefa de Recepción</p><div class="flex justify-center gap-3"><div class="social-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="social-icon"><i class="fa-brands fa-instagram"></i></div></div></div>
+      <div class="team-card"><div class="w-32 h-32 mx-auto rounded-full bg-gradient-to-br from-[#FFDF43] to-[#FF6139] flex items-center justify-center mb-4 text-4xl"><i class="fa-solid fa-champagne-glasses"></i></div><h3 class="text-xl font-bold">Laura Martínez</h3><p class="text-[#FFDF43] mb-3">Food & Beverage Manager</p><div class="flex justify-center gap-3"><div class="social-icon"><i class="fa-brands fa-linkedin-in"></i></div><div class="social-icon"><i class="fa-brands fa-facebook-f"></i></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="galeria" class="py-20 bg-gray-800">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-12"><span class="text-[#00CEFE] font-semibold tracking-wider">INSTALACIONES</span><h2 class="section-title mt-2">Nuestra Galería</h2><p class="text-gray-400 mt-4 max-w-2xl mx-auto">Descubre la belleza y elegancia de nuestras instalaciones</p></div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Lobby"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Piscina"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Restaurante"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Suite"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1445019980597-93fa8acb246c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spa"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+      <div class="gallery-item" onclick="openLightbox('https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80')"><img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Gimnasio"><div class="gallery-overlay"><i class="fa-solid fa-expand text-3xl text-white"></i></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="contacto" class="py-20 bg-gray-900">
+  <div class="container mx-auto px-4">
+    <div class="grid md:grid-cols-2 gap-12">
+      <div><span class="text-[#00CEFE] font-semibold tracking-wider">CONTÁCTANOS</span><h2 class="section-title mt-2 mb-4">¿Tienes alguna pregunta?</h2><p class="text-gray-400 mb-6">Estamos aquí para ayudarte. Contáctanos por cualquiera de nuestros canales</p>
+        <div class="space-y-4"><div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-[#00CEFE]/10 flex items-center justify-center"><i class="fa-solid fa-location-dot text-[#00CEFE]"></i></div><div><p class="font-semibold">Dirección</p><p class="text-gray-400 text-sm">Av. Principal 123, Cusco, Perú</p></div></div>
+        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-[#A255FF]/10 flex items-center justify-center"><i class="fa-solid fa-phone text-[#A255FF]"></i></div><div><p class="font-semibold">Teléfono</p><p class="text-gray-400 text-sm">+51 84 123456</p></div></div>
+        <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-lg bg-[#EE2A6E]/10 flex items-center justify-center"><i class="fa-solid fa-envelope text-[#EE2A6E]"></i></div><div><p class="font-semibold">Email</p><p class="text-gray-400 text-sm">info@hotelms.com</p></div></div></div>
+        <div class="flex gap-3 mt-8"><div class="social-icon w-10 h-10"><i class="fa-brands fa-facebook-f"></i></div><div class="social-icon w-10 h-10"><i class="fa-brands fa-instagram"></i></div><div class="social-icon w-10 h-10"><i class="fa-brands fa-twitter"></i></div><div class="social-icon w-10 h-10"><i class="fa-brands fa-linkedin-in"></i></div></div>
+      </div>
+      <div><form id="contactForm" class="space-y-4"><div class="grid md:grid-cols-2 gap-4"><input type="text" id="contactNombre" placeholder="Nombre completo" class="contact-input" required><input type="email" id="contactEmail" placeholder="Correo electrónico" class="contact-input" required></div><input type="tel" id="contactTelefono" placeholder="Teléfono" class="contact-input"><textarea id="contactMensaje" rows="4" placeholder="Mensaje..." class="contact-input" required></textarea><button type="submit" class="btn-primary w-full py-3 rounded-xl text-white font-semibold"><i class="fa-solid fa-paper-plane mr-2"></i> Enviar Mensaje</button></form></div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-gray-950 py-12 border-t border-gray-800"><div class="container mx-auto px-4 text-center"><div class="flex justify-center items-center space-x-2 mb-4"><div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#00CEFE] to-[#00417B] flex items-center justify-center"><i class="fa-solid fa-building-columns text-white text-xl"></i></div><span class="font-playfair text-xl font-bold">Hotel<span class="text-[#00CEFE]">MS</span></span></div><p class="text-gray-500 text-sm">© 2024 Hotel Management System. Todos los derechos reservados.</p></div></footer>
+
+<style>
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+
+<script>
+  document.getElementById('mobileMenuBtn').addEventListener('click', () => { document.getElementById('mobileMenu').classList.toggle('hidden'); });
+  window.addEventListener('scroll', () => { document.getElementById('navbar').classList.toggle('bg-black/90', window.scrollY > 50); });
+  
+  function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightbox').classList.add('active'); }
+  function closeLightbox() { document.getElementById('lightbox').classList.remove('active'); }
+  window.openLightbox = openLightbox;
+  window.closeLightbox = closeLightbox;
+  
+  document.getElementById('contactForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    Swal.fire({ icon: 'success', title: 'Mensaje enviado', text: 'Nos pondremos en contacto contigo pronto.', background: '#111827', color: '#fff', confirmButtonColor: '#00CEFE' });
+    document.getElementById('contactForm').reset();
+  });
+  
+  if (typeof google !== 'undefined' && google.script && google.script.run) {
+    google.script.run.withSuccessHandler(data => { if (data && data.stats) document.getElementById('statHabitaciones').innerText = data.stats.total || 120; }).obtenerDashboard();
+  }
+</script>
+</body>
+</html>
