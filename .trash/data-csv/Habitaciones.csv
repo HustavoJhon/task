@@ -1,0 +1,49 @@
+HabitacionID,NumeroHabitacion,TipoHabitacion,Capacidad,PrecioPorNoche,Estado,Descripcion
+1,101,Simple,1,120,Disponible,Vista al jardin interior
+2,102,Doble,2,180,Ocupada,Cama matrimonial TV 50
+3,103,Doble,2,190,Disponible,Dos camas simples con balcon
+4,104,Simple,1,130,Ocupada,Vista a la ciudad
+5,105,Simple,1,120,Disponible,Cerca al ascensor
+6,106,Simple,1,140,Ocupada,Vista interna silenciosa
+7,107,Doble,2,200,Disponible,Cama king size
+8,108,Doble,2,170,Mantenimiento,En remodelacion
+9,109,Simple,1,125,Disponible,Planta baja
+10,110,Doble,2,195,Ocupada,Vista al jardin
+11,201,Suite Ejecutiva,2,350,Ocupada,Suite con jacuzzi
+12,202,Suite Presidencial,4,650,Disponible,Terraza panoramica
+13,203,Suite Ejecutiva,2,380,Ocupada,Vista a Machu Picchu
+14,204,Suite Ejecutiva,2,360,Disponible,Sala de estar separada
+15,205,Suite Presidencial,4,700,Disponible,Penthouse terraza privada
+16,206,Suite Ejecutiva,2,340,Mantenimiento,Reparacion de climatizacion
+17,207,Suite Presidencial,4,680,Ocupada,Duplex con dos plantas
+18,208,Suite Ejecutiva,2,370,Disponible,Vista panoramica 360
+19,301,Familiar,4,280,Disponible,2 camas dobles sala
+20,302,Familiar,4,300,Ocupada,Cocineta incluida
+21,303,Simple,1,130,Mantenimiento,En renovacion
+22,304,Familiar,4,310,Disponible,Habitacion comunicada
+23,305,Familiar,4,290,Ocupada,Vista al rio
+24,306,Doble,2,210,Disponible,Habitacion silenciosa
+25,307,Familiar,4,320,Disponible,Dos habitaciones internas
+26,308,Simple,1,135,Ocupada,Discapacitados accesible
+27,401,Suite Presidencial,4,750,Disponible,Atelier con terraza
+28,402,Doble,2,200,Disponible,Vista a la Montana
+29,403,Doble,2,170,Ocupada,Cerca al spa
+30,404,Simple,1,145,Disponible,Decoracion tematica andina
+31,405,Suite Ejecutiva,2,390,Ocupada,Con estudio privado
+32,406,Familiar,4,330,Disponible,Habitacion doble con cuna
+33,407,Doble,2,185,Disponible,Balcon con vista
+34,408,Simple,1,150,Ocupada,Ultimo piso silencioso
+35,409,Suite Ejecutiva,2,400,Disponible,Suite nueva inaugurada
+36,410,Doble,2,175,Disponible,Recien remodelada
+37,411,Simple,1,125,Ocupada,Economica acogedora
+38,412,Familiar,4,340,Disponible,Familiar con cocina
+39,501,Suite Premium,2,500,Disponible,Exclusiva con mayordomo
+40,502,Suite Premium,2,550,Ocupada,Vista al valle sagrado
+41,503,Suite Premium,2,520,Disponible,Con piscina privada
+42,504,Suite Premium,2,580,Ocupada,Terraza con hidromasaje
+43,505,Suite Premium,2,600,Disponible,Suite presidencial menor
+44,506,Suite Premium,2,530,Disponible,Con sauna privado
+45,507,Suite Ejecutiva,2,410,Ocupada,Vista a las estrellas
+46,508,Doble,2,190,Disponible,Cercana al restaurante
+47,509,Simple,1,155,Disponible,Buhardilla con diseno
+48,510,Familiar,4,350,Ocupada,Familiar grande

@@ -1,0 +1,21 @@
+ServicioID,NombreServicio,Precio,Descripcion
+1,Desayuno Buffet,35,Desayuno americano completo con frutas y cafe
+2,Spa Wellness,120,Masajes relajantes y tratamientos corporales
+3,Room Service 24h,15,Servicio a la habitacion las 24 horas
+4,Estacionamiento,25,Cochera techada y vigilada
+5,Transfer Aeropuerto,80,Recojo y entrega en el aeropuerto
+6,Lavanderia Express,40,Lavado y planchado en 4 horas
+7,Cena Romantica,180,Cena privada en terraza con velas
+8,Tour Cusco City,150,Tour guiado por la ciudad de Cusco
+9,Tour Valle Sagrado,280,Tour completo a Moray Maras y Ollantaytambo
+10,Clase de Cocina,90,Clase de cocina peruana con chef
+11,Masaje de 60 min,80,Masaje descontracturante de cuerpo completo
+12,Piscina climatizada,40,Acceso a piscina todo el dia
+13,Sauna y Bano Turco,60,Circuito de aguas termales
+14,Excursion a Machu Picchu,450,Tren ida y vuelta entrada y guia
+15,Alquiler de Auto,200,Auto compacto por 24h con seguro
+16,Restaurante Gourmet,120,Cena de tres tiempos con maridaje
+17,Bar en Terraza,55,Cocteleria de autor al atardecer
+18,Transporte Ejecutivo,150,Chofer privado por 8 horas
+19,Desayuno en Habitacion,25,Desayuno servido en tu cuarto
+20,Brunch Dominical,65,Brunch buffet los domingos

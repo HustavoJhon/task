@@ -1,0 +1,31 @@
+HuespedID,Nombre,Apellido,FechaNacimiento,Nacionalidad,TipoDocumento,NumeroDocumento,Email,Telefono,Direccion
+1,Carlos,Mamani,1985-03-15,Peruana,DNI,42567891,carlos.m@gmail.com,+51 984 123456,Jr. Lima 234 Cusco
+2,Maria,Quispe,1990-07-22,Peruana,DNI,38901234,m.quispe@hotmail.com,+51 962 456789,Av. El Sol 567 Cusco
+3,James,Wilson,1978-11-05,Estadounidense,Pasaporte,A12345678,jwilson@email.com,+1 555 1234,New York USA
+4,Sophie,Dubois,1992-04-18,Francesa,Pasaporte,P98765432,s.dubois@gmail.com,+33 612345678,Paris France
+5,Ana,Rodriguez,1988-09-30,Colombiana,CE,CE001234,ana.r@yahoo.com,+57 301 234567,Bogota Colombia
+6,Pedro,Flores,1995-01-10,Peruana,DNI,45678901,pedro.f@gmail.com,+51 955 678901,Los Rosales 890 Cusco
+7,Yuki,Tanaka,1982-06-14,Japonesa,Pasaporte,JP5678901,yuki.t@jp.com,+81 90 1234 5678,Tokyo Japan
+8,Diego,Vargas,1975-12-25,Argentina,Pasaporte,AR1234567,d.vargas@outlook.com,+54 11 5678 9012,Buenos Aires
+9,Luisa,Mendoza,1993-08-08,Peruana,DNI,41234567,luisa.m@gmail.com,+51 988 765432,Av. Cultura 123 Cusco
+10,Robert,Johnson,1980-05-20,Estadounidense,Pasaporte,B98765432,r.johnson@mail.com,+1 212 555 0198,Chicago USA
+11,Fatima,Al-Hassan,1991-02-14,Emirati,Pasaporte,AE123456,fatima@mail.com,+971 50 123 4567,Dubai UAE
+12,Chen,Wei,1986-10-01,China,Pasaporte,CN7654321,chen.w@china.com,+86 138 0012 3456,Beijing China
+13,Elena,Garcia,1994-06-25,Espanola,Pasaporte,ES987654,elena.g@email.com,+34 612 345 678,Madrid Espana
+14,Raj,Patel,1987-03-12,India,Pasaporte,IN456789,raj.patel@mail.com,+91 98765 43210,Mumbai India
+15,Hiroshi,Yamamoto,1979-11-30,Japonesa,Pasaporte,JP1234567,hiroshi.y@jp.com,+81 80 9876 5432,Osaka Japan
+16,Carla,Sanchez,1996-09-18,Argentina,DNI,AR87654321,carla.s@hotmail.com,+54 351 123 4567,Cordoba Argentina
+17,Ahmed,Benali,1983-07-08,Marroqui,Pasaporte,MA567891,ahmed.b@mail.com,+212 6 12 34 56 78,Casablanca Marruecos
+18,Natasha,Kuznetsova,1991-12-01,Rusa,Pasaporte,RU1234567,natasha.k@mail.com,+7 916 123 45 67,Moscu Rusia
+19,John,Smith,1976-04-14,Estadounidense,Pasaporte,C7654321,john.smith@mail.com,+1 305 555 0199,Miami USA
+20,Laura,Martinez,1989-08-29,Peruana,DNI,47890123,laura.m@hotmail.com,+51 977 890 123,Urb. Residencial 456 Cusco
+21,David,Brown,1984-01-05,Estadounidense,Pasaporte,D12345678,david.brown@mail.com,+44 7700 123456,London UK
+22,Sakura,Tanaka,1995-05-20,Japonesa,Pasaporte,JP8765432,sakura.t@jp.com,+81 70 2345 6789,Kyoto Japan
+23,Pablo,Morales,1981-10-10,Chileno,Pasaporte,CL1234567,pablo.m@mail.com,+56 9 8765 4321,Santiago Chile
+24,Ingrid,Bergman,1987-03-30,Sueca,Pasaporte,SE876543,ingrid.b@mail.com,+46 70 123 45 67,Estocolmo Suecia
+25,Miguel,Torres,1992-11-15,Peruano,DNI,43456789,miguel.t@hotmail.com,+51 966 345 678,Av. Los Incas 789 Cusco
+26,Olivia,Green,1993-07-22,Australiana,Pasaporte,AU1234567,olivia.g@mail.com,+61 412 345 678,Sydney Australia
+27,Liam,O'Brien,1986-09-08,Irlandesa,Pasaporte,IE987654,liam.ob@mail.com,+353 87 123 45 67,Dublin Irlanda
+28,Valentina,Romano,1990-12-25,Italiana,Pasaporte,IT5678901,valentina.r@mail.com,+39 348 123 4567,Roma Italia
+29,Ricardo,Lopez,1977-04-02,Peruano,DNI,41239012,ricardo.l@hotmail.com,+51 955 789 012,San Blas Cusco
+30,Emma,Van Dijk,1988-08-16,Neerlandesa,Pasaporte,NL7654321,emma.v@mail.com,+31 6 1234 5678,Amsterdam Holanda

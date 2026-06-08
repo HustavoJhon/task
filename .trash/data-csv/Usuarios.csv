@@ -1,0 +1,11 @@
+UsuarioID,Nombre,Correo,Password,Rol,Estado
+1,Administrador,admin@hotel.com,admin123,Administrador,Activo
+2,Recepcionista,recep@hotel.com,recep123,Recepcionista,Activo
+3,Carlos Mamani,carlos.m@hotel.com,cm1234,Administrador,Activo
+4,Luisa Huaman,luisa.h@hotel.com,lh5678,Recepcionista,Activo
+5,Pedro Quispe,pedro.q@hotel.com,pq9012,Recepcionista,Activo
+6,Maria Torres,maria.t@hotel.com,mt3456,Administrador,Activo
+7,Jorge Rios,jorge.r@hotel.com,jr7890,Recepcionista,Activo
+8,Ana Condori,ana.c@hotel.com,ac1234,Recepcionista,Activo
+9,Raul Mendoza,raul.m@hotel.com,rm5678,Administrador,Inactivo
+10,Sofia Paredes,sofia.p@hotel.com,sp9012,Recepcionista,Activo

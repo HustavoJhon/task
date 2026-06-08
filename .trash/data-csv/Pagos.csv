@@ -1,0 +1,46 @@
+PagoID,ReservaID,FechaPago,Monto,MetodoPago,Estado
+1,1,2025-06-10,360,Yape,Completado
+2,2,2025-06-11,2450,Tarjeta Credito,Completado
+3,3,2025-06-08,1300,Efectivo,Completado
+4,4,2025-06-05,100,Transferencia,Pendiente
+5,5,2025-05-20,510,Yape,Reembolsado
+6,6,2025-06-08,950,Tarjeta Debito,Completado
+7,7,2025-06-10,560,Yape,Completado
+8,8,2025-06-05,260,Efectivo,Completado
+9,9,2025-06-15,500,Plin,Pendiente
+10,10,2025-06-12,480,Tarjeta Credito,Completado
+11,11,2025-06-14,580,Transferencia,Pendiente
+12,12,2025-06-09,800,Yape,Completado
+13,13,2025-06-20,420,Efectivo,Completado
+14,14,2025-06-22,800,Tarjeta Debito,Pendiente
+15,15,2025-06-25,1160,Tarjeta Credito,Completado
+16,16,2025-06-18,585,Yape,Completado
+17,17,2025-06-15,370,Transferencia,Pendiente
+18,18,2025-06-28,1500,Tarjeta Credito,Completado
+19,19,2025-06-30,450,Efectivo,Pendiente
+20,20,2025-06-20,360,Yape,Completado
+21,21,2025-07-10,800,Tarjeta Debito,Completado
+22,22,2025-07-12,350,Plin,Pendiente
+23,23,2025-07-05,435,Tarjeta Credito,Completado
+24,24,2025-07-15,820,Transferencia,Completado
+25,25,2025-07-01,570,Yape,Completado
+26,26,2025-07-20,155,Efectivo,Pendiente
+27,27,2025-07-08,555,Tarjeta Debito,Completado
+28,28,2025-07-18,400,Tarjeta Credito,Pendiente
+29,29,2025-07-10,780,Yape,Completado
+30,30,2025-07-25,1325,Plin,Completado
+31,31,2025-08-10,600,Tarjeta Credito,Completado
+32,32,2025-08-15,700,Transferencia,Pendiente
+33,33,2025-08-18,2000,Tarjeta Debito,Completado
+34,34,2025-08-05,420,Yape,Completado
+35,35,2025-08-22,125,Efectivo,Pendiente
+36,36,2025-08-25,760,Tarjeta Credito,Completado
+37,37,2025-08-28,330,Transferencia,Pendiente
+38,38,2025-09-01,1050,Yape,Completado
+39,39,2025-09-05,1080,Tarjeta Debito,Completado
+40,40,2025-09-08,520,Plin,Pendiente
+41,41,2025-06-03,405,Efectivo,Completado
+42,42,2025-06-01,250,Yape,Completado
+43,43,2025-05-20,510,Tarjeta Credito,Completado
+44,44,2025-06-18,930,Transferencia,Completado
+45,45,2025-07-01,1020,Tarjeta Credito,Reembolsado
