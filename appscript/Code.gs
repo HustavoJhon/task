@@ -1,300 +1,446 @@
-// ============================================================
-//  HOTEL MANAGEMENT SYSTEM — Code.gs
-//  Backend Google Apps Script
-// ============================================================
+/**
+ * SISTEMA DE GESTIÓN HOTELERA - HOTEL LUXE
+ * Archivo Backend: Code.gs
+ * Conecta el Dashboard HTML con las tablas de Google Sheets.
+ */
 
-const SS_ID = PropertiesService.getScriptProperties().getProperty('SS_ID');
+// Configuración global: Deja vacío si el script está vinculado directamente al contenedor del Sheet.
+// Si usas un script independiente, introduce el ID del documento entre las comillas.
+const SPREADSHEET_ID = ""; 
 
-function getSheet(name) {
-  return SpreadsheetApp.openById(SS_ID).getSheetByName(name);
+function getSpreadsheet() {
+  if (SPREADSHEET_ID) {
+    return SpreadsheetApp.openById(SPREADSHEET_ID);
+  }
+  return SpreadsheetApp.getActiveSpreadsheet();
 }
 
-// ── Routing ──────────────────────────────────────────────────
+/**
+ * Servir la interfaz web (opcional si renderizas el dashboard directamente desde Apps Script)
+ */
 function doGet(e) {
-  const page = e.parameter.page || 'Login';
-  const html = HtmlService.createTemplateFromFile(page).evaluate()
-    .setTitle('Hotel Luxe — Sistema de Gestión')
-    .addMetaTag('viewport', 'width=device-width, initial-scale=1')
-    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-  return html;
-}
-
-function include(filename) {
-  return HtmlService.createHtmlOutputFromFile(filename).getContent();
-}
-
-// ── Inicializar Sheets ────────────────────────────────────────
-function initSheets() {
-  const ss = SpreadsheetApp.openById(SS_ID);
-  const sheets = {
-    'Huespedes':        ['HuespedID','Nombre','Apellido','FechaNacimiento','Nacionalidad','TipoDocumento','NumeroDocumento','Email','Telefono','Direccion'],
-    'Habitaciones':     ['HabitacionID','NumeroHabitacion','TipoHabitacion','Capacidad','PrecioPorNoche','Estado','Descripcion'],
-    'Reservas':         ['ReservaID','HuespedID','FechaLlegada','FechaSalida','FechaReserva','EstadoReserva','NumeroAdultos','NumeroNinos','Notas','MontoTotal'],
-    'DetallesReserva':  ['DetalleReservaID','ReservaID','HabitacionID','PrecioAplicado','FechaAsignacion'],
-    'Pagos':            ['PagoID','ReservaID','FechaPago','Monto','MetodoPago','Estado'],
-    'Usuarios':         ['UsuarioID','Nombre','Correo','Password','Rol','Estado'],
-    'Servicios':        ['ServicioID','NombreServicio','Precio','Descripcion'],
-    'ConsumoServicios': ['ConsumoID','ReservaID','ServicioID','Cantidad','Subtotal']
-  };
-  for (const [name, headers] of Object.entries(sheets)) {
-    if (!ss.getSheetByName(name)) {
-      const sh = ss.insertSheet(name);
-      sh.appendRow(headers);
-    }
+  // Si envías parámetros de consulta por GET, los procesamos como API externa
+  if (e && e.parameter && e.parameter.action) {
+    return handleApiGetRequests(e);
   }
-  // Seed admin user if Usuarios empty
-  const u = ss.getSheetByName('Usuarios');
-  if (u.getLastRow() < 2) {
-    u.appendRow([1,'Administrador','admin@hotel.com','admin123','Administrador','Activo']);
-    u.appendRow([2,'Recepcionista','recep@hotel.com','recep123','Recepcionista','Activo']);
-  }
-  return 'OK';
+  // Por defecto, sirve el archivo Index.html si está dentro del proyecto
+  return HtmlService.createHtmlOutputFromFile('Index')
+      .setTitle('Hotel Luxe — Sistema de Gestión Hotelera')
+      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
 
-// ── Auth ──────────────────────────────────────────────────────
-function login(correo, password) {
-  const sh = getSheet('Usuarios');
-  const data = sh.getDataRange().getValues();
-  for (let i = 1; i < data.length; i++) {
-    if (data[i][2] === correo && data[i][3] === password && data[i][5] === 'Activo') {
-      return { ok: true, id: data[i][0], nombre: data[i][1], rol: data[i][4] };
-    }
-  }
-  return { ok: false };
-}
-
-// ── Helpers ───────────────────────────────────────────────────
-function sheetToJson(sheetName) {
-  const sh = getSheet(sheetName);
-  if (!sh) return [];
-  const [headers, ...rows] = sh.getDataRange().getValues();
-  return rows.map(r => Object.fromEntries(headers.map((h, i) => [h, r[i]])));
-}
-
-function generateId(sheetName, idCol) {
-  const sh = getSheet(sheetName);
-  const last = sh.getLastRow();
-  if (last < 2) return 1;
-  return sh.getRange(last, 1).getValue() + 1;
-}
-
-// ── Huéspedes ─────────────────────────────────────────────────
-function obtenerHuespedes() { return sheetToJson('Huespedes'); }
-
-function guardarHuesped(data) {
-  const sh = getSheet('Huespedes');
-  const id = generateId('Huespedes');
-  sh.appendRow([id, data.Nombre, data.Apellido, data.FechaNacimiento,
-    data.Nacionalidad, data.TipoDocumento, data.NumeroDocumento,
-    data.Email, data.Telefono, data.Direccion]);
-  return { ok: true, id };
-}
-
-function editarHuesped(data) {
-  const sh = getSheet('Huespedes');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == data.HuespedID) {
-      sh.getRange(i + 1, 1, 1, 10).setValues([[data.HuespedID, data.Nombre, data.Apellido,
-        data.FechaNacimiento, data.Nacionalidad, data.TipoDocumento,
-        data.NumeroDocumento, data.Email, data.Telefono, data.Direccion]]);
-      return { ok: true };
-    }
-  }
-  return { ok: false };
-}
-
-function eliminarHuesped(id) {
-  const sh = getSheet('Huespedes');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == id) { sh.deleteRow(i + 1); return { ok: true }; }
-  }
-  return { ok: false };
-}
-
-// ── Habitaciones ──────────────────────────────────────────────
-function obtenerHabitaciones() { return sheetToJson('Habitaciones'); }
-
-function guardarHabitacion(data) {
-  const sh = getSheet('Habitaciones');
-  const id = generateId('Habitaciones');
-  sh.appendRow([id, data.NumeroHabitacion, data.TipoHabitacion, data.Capacidad,
-    data.PrecioPorNoche, data.Estado || 'Disponible', data.Descripcion]);
-  return { ok: true, id };
-}
-
-function editarHabitacion(data) {
-  const sh = getSheet('Habitaciones');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == data.HabitacionID) {
-      sh.getRange(i + 1, 1, 1, 7).setValues([[data.HabitacionID, data.NumeroHabitacion,
-        data.TipoHabitacion, data.Capacidad, data.PrecioPorNoche,
-        data.Estado, data.Descripcion]]);
-      return { ok: true };
-    }
-  }
-  return { ok: false };
-}
-
-function eliminarHabitacion(id) {
-  const sh = getSheet('Habitaciones');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == id) { sh.deleteRow(i + 1); return { ok: true }; }
-  }
-  return { ok: false };
-}
-
-function cambiarEstadoHabitacion(id, estado) {
-  const sh = getSheet('Habitaciones');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == id) { sh.getRange(i + 1, 6).setValue(estado); return { ok: true }; }
-  }
-  return { ok: false };
-}
-
-// ── Reservas ──────────────────────────────────────────────────
-function obtenerReservas() { return sheetToJson('Reservas'); }
-
-function guardarReserva(data) {
-  const sh = getSheet('Reservas');
-  const id = generateId('Reservas');
-  const today = new Date().toISOString().split('T')[0];
-  sh.appendRow([id, data.HuespedID, data.FechaLlegada, data.FechaSalida, today,
-    data.EstadoReserva || 'Confirmada', data.NumeroAdultos, data.NumeroNinos,
-    data.Notas, data.MontoTotal]);
-  // Asignar habitación
-  if (data.HabitacionID) {
-    const det = getSheet('DetallesReserva');
-    const dId = generateId('DetallesReserva');
-    det.appendRow([dId, id, data.HabitacionID, data.PrecioAplicado, today]);
-    cambiarEstadoHabitacion(data.HabitacionID, 'Ocupada');
-  }
-  return { ok: true, id };
-}
-
-function cancelarReserva(id) {
-  const sh = getSheet('Reservas');
-  const vals = sh.getDataRange().getValues();
-  for (let i = 1; i < vals.length; i++) {
-    if (vals[i][0] == id) {
-      sh.getRange(i + 1, 6).setValue('Cancelada');
-      // liberar habitación
-      const det = getSheet('DetallesReserva').getDataRange().getValues();
-      for (let d = 1; d < det.length; d++) {
-        if (det[d][1] == id) cambiarEstadoHabitacion(det[d][2], 'Disponible');
-      }
-      return { ok: true };
-    }
-  }
-  return { ok: false };
-}
-
-// ── Pagos ─────────────────────────────────────────────────────
-function obtenerPagos() { return sheetToJson('Pagos'); }
-
-function guardarPago(data) {
-  const sh = getSheet('Pagos');
-  const id = generateId('Pagos');
-  sh.appendRow([id, data.ReservaID, new Date().toISOString().split('T')[0],
-    data.Monto, data.MetodoPago, data.Estado || 'Completado']);
-  return { ok: true, id };
-}
-
-// ── Servicios ─────────────────────────────────────────────────
-function obtenerServicios() { return sheetToJson('Servicios'); }
-
-function guardarServicio(data) {
-  const sh = getSheet('Servicios');
-  const id = generateId('Servicios');
-  sh.appendRow([id, data.NombreServicio, data.Precio, data.Descripcion]);
-  return { ok: true, id };
-}
-
-function registrarConsumo(data) {
-  const sh = getSheet('ConsumoServicios');
-  const id = generateId('ConsumoServicios');
-  sh.appendRow([id, data.ReservaID, data.ServicioID, data.Cantidad, data.Subtotal]);
-  return { ok: true, id };
-}
-
-// ── Dashboard Stats ───────────────────────────────────────────
-function obtenerDashboard() {
+/**
+ * Punto de entrada para peticiones POST (API externa o llamadas fetch)
+ */
+function doPost(e) {
   try {
-    const habs  = sheetToJson('Habitaciones');
-    const res   = sheetToJson('Reservas');
-    const pagos = sheetToJson('Pagos');
-    const hues  = sheetToJson('Huespedes');
-
-    const total     = habs.length;
-    const ocupadas  = habs.filter(h => h.Estado === 'Ocupada').length;
-    const dispon    = habs.filter(h => h.Estado === 'Disponible').length;
-    const manten    = habs.filter(h => h.Estado === 'Mantenimiento').length;
-
-    const hoy  = new Date();
-    const mes  = hoy.getMonth();
-    const anio = hoy.getFullYear();
-
-    const resMes    = res.filter(r => { const d = new Date(r.FechaReserva); return d.getMonth()===mes && d.getFullYear()===anio; });
-    const ingrMes   = pagos.filter(p => { const d = new Date(p.FechaPago); return d.getMonth()===mes && d.getFullYear()===anio && p.Estado==='Completado'; })
-                           .reduce((s, p) => s + parseFloat(p.Monto || 0), 0);
-
-    // Ingresos por mes (últimos 6)
-    const ingresosMes = [];
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date(anio, mes - i, 1);
-      const m = d.getMonth(); const a = d.getFullYear();
-      const sum = pagos.filter(p => { const pd = new Date(p.FechaPago); return pd.getMonth()===m && pd.getFullYear()===a && p.Estado==='Completado'; })
-                       .reduce((s, p) => s + parseFloat(p.Monto || 0), 0);
-      ingresosMes.push({ mes: d.toLocaleDateString('es', { month: 'short' }), total: sum });
-    }
-
-    // Reservas por mes
-    const reservasMes = [];
-    for (let i = 5; i >= 0; i--) {
-      const d = new Date(anio, mes - i, 1);
-      const m = d.getMonth(); const a = d.getFullYear();
-      const cnt = res.filter(r => { const rd = new Date(r.FechaReserva); return rd.getMonth()===m && rd.getFullYear()===a; }).length;
-      reservasMes.push({ mes: d.toLocaleDateString('es', { month: 'short' }), total: cnt });
-    }
-
-    return {
-      ok: true,
-      stats: { total, ocupadas, dispon, manten, resMes: resMes.length, ingrMes, totalHuespedes: hues.length },
-      ingresosMes, reservasMes,
-      habitaciones: { ocupadas, dispon, manten },
-      ultimasReservas: res.slice(-5).reverse(),
-      ultimosPagos: pagos.slice(-5).reverse()
-    };
-  } catch (e) { return { ok: false, error: e.message }; }
+    const data = JSON.parse(e.postData.contents);
+    const result = handleApiPostRequests(data);
+    return ContentService.createTextOutput(JSON.stringify(result))
+                         .setMimeType(ContentService.MimeType.JSON);
+  } catch(err) {
+    return ContentService.createTextOutput(JSON.stringify({ success: false, message: err.toString() }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
 }
 
-// ── Reportes ──────────────────────────────────────────────────
-function obtenerReportes() {
-  const res   = sheetToJson('Reservas');
-  const pagos = sheetToJson('Pagos');
-  const habs  = sheetToJson('Habitaciones');
-  const hues  = sheetToJson('Huespedes');
+/**
+ * =========================================================================
+ * FUNCIONES DISPONIBLES VÍA google.script.run (Para llamadas directas desde el HTML)
+ * =========================================================================
+ */
 
-  // Clientes frecuentes
-  const freq = {};
-  res.forEach(r => { freq[r.HuespedID] = (freq[r.HuespedID] || 0) + 1; });
-  const topClientes = Object.entries(freq).sort((a,b) => b[1]-a[1]).slice(0,5)
-    .map(([id, cnt]) => {
-      const h = hues.find(x => x.HuespedID == id);
-      return { nombre: h ? `${h.Nombre} ${h.Apellido}` : `ID ${id}`, reservas: cnt };
+/**
+ * Sistema de Autenticación de Usuarios
+ */
+function loginUsuario(correo, password) {
+  try {
+    const data = obtenerDatosTabla("Usuarios");
+    const usuario = data.find(u => u.Correo === correo && u.Password === password);
+    
+    if (!usuario) {
+      return { success: false, message: "Credenciales incorrectas." };
+    }
+    if (usuario.Estado !== "Activo" && usuario.Estado !== "completado") { // Depende de tu convención
+      return { success: false, message: "El usuario se encuentra inactivo." };
+    }
+    
+    // Devolver datos excluyendo la contraseña por seguridad
+    return {
+      success: true,
+      usuario: {
+        UsuarioID: usuario.UsuarioID,
+        Nombre: usuario.Nombre,
+        Correo: usuario.Correo,
+        Rol: usuario.Rol
+      }
+    };
+  } catch(e) {
+    return { success: false, message: "Error en login: " + e.toString() };
+  }
+}
+
+/**
+ * Leer de forma genérica registros de cualquier tabla mapeando las cabeceras a objetos JSON
+ */
+function obtenerDatosTabla(nombreTabla) {
+  const ss = getSpreadsheet();
+  const sheet = ss.getSheetByName(nombreTabla);
+  if (!sheet) throw new Error("La tabla " + nombreTabla + " no existe.");
+  
+  const values = sheet.getDataRange().getValues();
+  if (values.length <= 1) return []; // Solo cabecera o vacía
+  
+  const cabeceras = values[0];
+  const resultado = [];
+  
+  for (let i = 1; i < values.length; i++) {
+    let fila = values[i];
+    let obj = {};
+    cabeceras.forEach((cabecera, index) => {
+      obj[cabecera] = fila[index];
     });
+    resultado.push(obj);
+  }
+  return resultado;
+}
 
-  // Tipos de habitación
-  const tipos = {};
-  habs.forEach(h => { tipos[h.TipoHabitacion] = (tipos[h.TipoHabitacion] || 0) + 1; });
+/**
+ * Insertar o actualizar de forma genérica un registro en cualquier tabla
+ * Maneja automáticamente la creación de IDs únicos autoincrementables numéricos.
+ */
+function guardarRegistro(nombreTabla, datosObjeto) {
+  // LockService evita que dos usuarios guarden simultáneamente y dupliquen IDs
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000); // Esperar hasta 10 segundos disponibilidad
+    
+    const ss = getSpreadsheet();
+    const sheet = ss.getSheetByName(nombreTabla);
+    if (!sheet) throw new Error("La tabla " + nombreTabla + " no existe.");
+    
+    const values = sheet.getDataRange().getValues();
+    const cabeceras = values[0];
+    const idNombre = cabeceras[0]; // Se asume que el primer campo es el ID primario (ej: HuespedID)
+    
+    let filaDestino;
+    let esNuevo = true;
+    let nuevoId = 1;
+    
+    // Si viene con un ID válido, buscamos si existe para actualizarlo
+    if (datosObjeto[idNombre]) {
+      const idBuscado = String(datosObjeto[idNombre]);
+      for (let i = 1; i < values.length; i++) {
+        if (String(values[i][0]) === idBuscado) {
+          filaDestino = i + 1; // Fila real en Google Sheets (1-indexed)
+          esNuevo = false;
+          nuevoId = datosObjeto[idNombre];
+          break;
+        }
+      }
+    }
+    
+    // Si es nuevo registro, calculamos el siguiente ID secuencial
+    if (esNuevo) {
+      filaDestino = sheet.getLastRow() + 1;
+      if (values.length > 1) {
+        // Encontrar el ID numérico más alto y sumarle 1
+        const ids = values.slice(1).map(f => Number(f[0])).filter(id => !isNaN(id));
+        if (ids.length > 0) {
+          nuevoId = Math.max(...ids) + 1;
+        }
+      }
+      datosObjeto[idNombre] = nuevoId;
+    }
+    
+    // Mapear el objeto en orden según las columnas de la cabecera
+    const nuevaFilaDatos = cabeceras.map(cabecera => {
+      return datosObjeto[cabecera] !== undefined ? datosObjeto[cabecera] : "";
+    });
+    
+    // Escribir los datos en la hoja
+    sheet.getRange(filaDestino, 1, 1, nuevaFilaDatos.length).setValues([nuevaFilaDatos]);
+    
+    return { success: true, id: nuevoId, message: esNuevo ? "Registro creado." : "Registro actualizado." };
+    
+  } catch(e) {
+    return { success: false, message: e.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}
 
-  // Métodos de pago
+/**
+ * Eliminar un registro basándose en su ID único (Primera columna)
+ */
+function eliminarRegistro(nombreTabla, idRegistro) {
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(10000);
+    const ss = getSpreadsheet();
+    const sheet = ss.getSheetByName(nombreTabla);
+    if (!sheet) throw new Error("La tabla " + nombreTabla + " no existe.");
+    
+    const values = sheet.getDataRange().getValues();
+    const idBuscado = String(idRegistro);
+    
+    for (let i = 1; i < values.length; i++) {
+      if (String(values[i][0]) === idBuscado) {
+        sheet.deleteRow(i + 1);
+        return { success: true, message: "Registro eliminado correctamente." };
+      }
+    }
+    return { success: false, message: "No se encontró el registro con el ID proporcionado." };
+  } catch(e) {
+    return { success: false, message: e.toString() };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/**
+ * Obtener consolidado total de métricas del hotel para los gráficos del Dashboard
+ */
+function obtenerMetricasDashboard() {
+  try {
+    const habitaciones = obtenerDatosTabla("Habitaciones");
+    const reservas = obtenerDatosTabla("Reservas");
+    const pagos = obtenerDatosTabla("Pagos");
+    
+    // 1. Ocupación actual
+    const habTotales = habitaciones.length;
+    const habOcupadas = habitaciones.filter(h => h.Estado.toLowerCase() === "ocupada").length;
+    const porcOcupacion = habTotales > 0 ? Math.round((habOcupadas / habTotales) * 100) : 0;
+    
+    // 2. Ingresos Totales (Monto de pagos completados)
+    const ingresosTotales = pagos.reduce((sum, p) => {
+      const estado = String(p.Estado).toLowerCase();
+      return (estado === "completado" || estado === "pagado") ? sum + Number(p.Monto || 0) : sum;
+    }, 0);
+    
+    // 3. Estado de Reservas
+    const pendientes = reservas.filter(r => String(r.EstadoReserva).toLowerCase() === "pendiente").length;
+    const confirmadas = reservas.filter(r => ["completado", "confirmada", "activa"].includes(String(r.EstadoReserva).toLowerCase())).length;
+    
+    return {
+      success: true,
+      metricas: {
+        habitacionesTotales: habTotales,
+        habitacionesOcupadas: habOcupadas,
+        porcentajeOcupacion: porcOcupacion,
+        ingresosTotales: ingresosTotales,
+        reservasPendientes: pendientes,
+        reservasConfirmadas: confirmadas
+      }
+    };
+  } catch(e) {
+    return { success: false, message: e.toString() };
+  }
+}
+
+/**
+ * =========================================================================
+ * PUENTE FRONTEND — Entry point único para todas las llamadas de Index.html
+ * Mapea los nombres de acción del frontend a las funciones reales del backend
+ * =========================================================================
+ */
+function _ok(result) {
+  if (result && typeof result === 'object' && 'success' in result) {
+    result.ok = result.success;
+  }
+  return result;
+}
+
+function frontendBridge(action, param) {
+  try {
+    switch (action) {
+      // ─── OBTENER DATOS ───
+      case 'obtenerHuespedes':    return obtenerDatosTabla('Huespedes');
+      case 'obtenerHabitaciones': return obtenerDatosTabla('Habitaciones');
+      case 'obtenerReservas':     return obtenerDatosTabla('Reservas');
+      case 'obtenerPagos':        return obtenerDatosTabla('Pagos');
+      case 'obtenerServicios':    return obtenerDatosTabla('Servicios');
+
+      // ─── GUARDAR / ACTUALIZAR ───
+      case 'guardarHuesped':      return _ok(guardarRegistro('Huespedes', param));
+      case 'editarHuesped':       return _ok(guardarRegistro('Huespedes', param));
+      case 'guardarHabitacion':   return _ok(guardarRegistro('Habitaciones', param));
+      case 'editarHabitacion':    return _ok(guardarRegistro('Habitaciones', param));
+      case 'guardarReserva':      return _ok(guardarRegistro('Reservas', param));
+      case 'guardarPago':         return _ok(guardarRegistro('Pagos', param));
+      case 'guardarServicio':     return _ok(guardarRegistro('Servicios', param));
+      case 'guardarContacto':     return _ok(guardarRegistro('Contactos', param));
+
+      // ─── ELIMINAR ───
+      case 'eliminarHuesped':     return _ok(eliminarRegistro('Huespedes', param));
+
+      // ─── ACCIONES ESPECIALES ───
+      case 'cambiarEstadoHabitacion': {
+        const habs = obtenerDatosTabla('Habitaciones');
+        const hab = habs.find(h => h.HabitacionID == param.id);
+        if (!hab) return _ok({ success: false, message: 'Habitación no encontrada' });
+        hab.Estado = param.estado;
+        return _ok(guardarRegistro('Habitaciones', hab));
+      }
+      case 'cancelarReserva': {
+        const res = obtenerDatosTabla('Reservas');
+        const r = res.find(x => x.ReservaID == param);
+        if (!r) return _ok({ success: false, message: 'Reserva no encontrada' });
+        r.EstadoReserva = 'Cancelada';
+        return _ok(guardarRegistro('Reservas', r));
+      }
+
+      // ─── DASHBOARD ───
+      case 'obtenerDashboard':   return obtenerDashboardCompleto();
+
+      // ─── REPORTES ───
+      case 'obtenerReportes': {
+        const reservas = obtenerDatosTabla('Reservas');
+        const huespedes = obtenerDatosTabla('Huespedes');
+        const pagos = obtenerDatosTabla('Pagos');
+        const counts = {};
+        reservas.forEach(r => { counts[r.HuespedID] = (counts[r.HuespedID] || 0) + 1; });
+        const topClientes = Object.entries(counts).sort((a, b) => b[1] - a[1]).slice(0, 5).map(([id, count]) => {
+          const h = huespedes.find(x => x.HuespedID == id);
+          return { nombre: h ? `${h.Nombre} ${h.Apellido}` : `ID ${id}`, reservas: count };
+        });
+        const metodos = {};
+        pagos.forEach(p => {
+          const m = p.MetodoPago || 'Otros';
+          metodos[m] = (metodos[m] || 0) + Number(p.Monto || 0);
+        });
+        return { ok: true, topClientes, tipos: {}, metodos };
+      }
+
+      // ─── INICIALIZAR SHEETS ───
+      case 'initSheets':          return _ok(inicializarSheets());
+
+      // ─── LOGIN ───
+      case 'login': {
+        const result = loginUsuario(param.correo, param.password);
+        if (result.success) {
+          return {
+            ok: true,
+            nombre: result.usuario.Nombre,
+            rol: result.usuario.Rol,
+            id: result.usuario.UsuarioID
+          };
+        }
+        return { ok: false, message: result.message };
+      }
+
+      default:
+        return { ok: false, message: 'Acción no reconocida: ' + action };
+    }
+  } catch (e) {
+    return { ok: false, message: e.toString() };
+  }
+}
+
+function obtenerDashboardCompleto() {
+  const safe = function(tabla) { try { return obtenerDatosTabla(tabla) || []; } catch(e) { return []; } };
+  const habitaciones = safe("Habitaciones");
+  const reservas = safe("Reservas");
+  const pagos = safe("Pagos");
+  const huespedes = safe("Huespedes");
+
+  const total = habitaciones.length;
+  const ocupadas = habitaciones.filter(h => String(h.Estado).toLowerCase() === "ocupada").length;
+  const disponibles = habitaciones.filter(h => String(h.Estado).toLowerCase() === "disponible").length;
+  const manten = habitaciones.filter(h => String(h.Estado).toLowerCase() === "mantenimiento").length;
+
+  const ingrTotales = pagos.reduce((sum, p) => {
+    const est = String(p.Estado).toLowerCase();
+    return (est === "completado" || est === "pagado") ? sum + Number(p.Monto || 0) : sum;
+  }, 0);
+
+  const ahora = new Date();
+  const mesAct = ahora.getMonth(), anioAct = ahora.getFullYear();
+  const resMes = reservas.filter(r => {
+    const d = new Date(r.FechaReserva || r.FechaLlegada);
+    return !isNaN(d) && d.getMonth() === mesAct && d.getFullYear() === anioAct;
+  }).length;
+
+  const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const ingMes = Array(12).fill(0);
+  const resMesArr = Array(12).fill(0);
   const metodos = {};
-  pagos.forEach(p => { metodos[p.MetodoPago] = (metodos[p.MetodoPago] || 0) + 1; });
+  pagos.forEach(p => {
+    if (p.FechaPago) { const d = new Date(p.FechaPago); if (!isNaN(d)) ingMes[d.getMonth()] += Number(p.Monto || 0); }
+    const m = p.MetodoPago || 'Otros';
+    metodos[m] = (metodos[m] || 0) + Number(p.Monto || 0);
+  });
+  reservas.forEach(r => {
+    const f = r.FechaReserva || r.FechaLlegada;
+    if (f) { const d = new Date(f); if (!isNaN(d)) resMesArr[d.getMonth()]++; }
+  });
 
-  return { ok: true, topClientes, tipos, metodos };
+  return {
+    ok: true,
+    stats: { total, ocupadas, dispon: disponibles, manten, resMes, ingrMes: ingrTotales, totalHuespedes: huespedes.length },
+    ingresosMes: meses.map((m, i) => ({ mes: m, total: ingMes[i] })),
+    habitaciones: { ocupadas, dispon: disponibles, manten },
+    reservasMes: meses.map((m, i) => ({ mes: m, total: resMesArr[i] })),
+    metodosPago: metodos,
+    ultimasReservas: reservas.slice(-5).reverse(),
+    ultimosPagos: pagos.slice(-5).reverse()
+  };
+}
+
+function inicializarSheets() {
+  const ss = getSpreadsheet();
+  const tabs = {
+    Huespedes: ['HuespedID','Nombre','Apellido','FechaNacimiento','Nacionalidad','TipoDocumento','NumeroDocumento','Email','Telefono','Direccion'],
+    Habitaciones: ['HabitacionID','NumeroHabitacion','TipoHabitacion','Capacidad','PrecioPorNoche','Estado','Descripcion'],
+    Reservas: ['ReservaID','HuespedID','HabitacionID','FechaLlegada','FechaSalida','FechaReserva','EstadoReserva','NumeroAdultos','NumeroNinos','MontoTotal','Notas'],
+    Pagos: ['PagoID','ReservaID','FechaPago','Monto','MetodoPago','Estado'],
+    Servicios: ['ServicioID','NombreServicio','Precio','Descripcion'],
+    Usuarios: ['UsuarioID','Nombre','Correo','Password','Rol','Estado'],
+    Contactos: ['ContactoID','Nombre','Correo','Telefono','Mensaje','Fecha']
+  };
+  Object.entries(tabs).forEach(([name, headers]) => {
+    let sheet = ss.getSheetByName(name);
+    if (!sheet) sheet = ss.insertSheet(name);
+    sheet.clear();
+    sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
+    sheet.setFrozenRows(1);
+  });
+  return { success: true, message: 'Sheets inicializadas correctamente' };
+}
+
+/**
+ * =========================================================================
+ * MANEJADORES PARA ACCESOS EXTERNOS VÍA WEB WEBHOOKS (fetch/axios POST y GET)
+ * =========================================================================
+ */
+function handleApiGetRequests(e) {
+  let action = e.parameter.action;
+  let tabla = e.parameter.tabla;
+  let data;
+  
+  if (action === "obtenerDatos" && tabla) {
+    data = obtenerDatosTabla(tabla);
+    return ContentService.createTextOutput(JSON.stringify({ success: true, data: data }))
+                         .setMimeType(ContentService.MimeType.JSON);
+  } else if (action === "obtenerMetricas") {
+    data = obtenerMetricasDashboard();
+    return ContentService.createTextOutput(JSON.stringify(data))
+                         .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  return ContentService.createTextOutput(JSON.stringify({ success: false, message: "Acción GET inválida." }))
+                       .setMimeType(ContentService.MimeType.JSON);
+}
+
+function handleApiPostRequests(data) {
+  if (data.action === "login") {
+    return loginUsuario(data.correo, data.password);
+  }
+  if (data.action === "guardar" && data.tabla && data.registro) {
+    return guardarRegistro(data.tabla, data.registro);
+  }
+  if (data.action === "eliminar" && data.tabla && data.id) {
+    return eliminarRegistro(data.tabla, data.id);
+  }
+  return { success: false, message: "Acción POST inválida o parámetros incompletos." };
 }
