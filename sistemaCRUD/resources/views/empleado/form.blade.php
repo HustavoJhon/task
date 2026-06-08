@@ -1,1 +1,0 @@
-Formulario compartido para el edit y create 
