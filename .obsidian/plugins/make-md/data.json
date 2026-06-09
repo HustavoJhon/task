@@ -40,7 +40,18 @@
   "expandedSpaces": [
     "/",
     "//sistemaCRUD",
-    "//appscript/appscript/task"
+    "//appscript/appscript/task",
+    "//wasiyuq",
+    "//wasiyuq/wasiyuq/01-introduction",
+    "//wasiyuq/wasiyuq/02-setup",
+    "//wasiyuq/wasiyuq/03-backend",
+    "//wasiyuq/wasiyuq/04-frontend",
+    "//wasiyuq/wasiyuq/05-modules",
+    "//wasiyuq/wasiyuq/06-public",
+    "//wasiyuq/wasiyuq/07-admin",
+    "//wasiyuq/wasiyuq/08-dashboard-team",
+    "//wasiyuq/wasiyuq/09-infrastructure",
+    "//wasiyuq/wasiyuq/10-testing"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

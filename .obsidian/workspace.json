@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "wasiyuq/informe.md",
+                "file": "wasiyuq/01-introduction/overview.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "informe"
+              "title": "overview"
             }
           }
         ]
@@ -105,7 +105,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "wasiyuq/informe.md",
+                "file": "wasiyuq/01-introduction/overview.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for informe"
+              "title": "Backlinks for overview"
             }
           },
           {
@@ -124,12 +124,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "wasiyuq/informe.md",
+                "file": "wasiyuq/01-introduction/overview.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from informe"
+              "title": "Outgoing links from overview"
             }
           },
           {
@@ -167,21 +167,20 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "wasiyuq/informe.md",
+                "file": "wasiyuq/01-introduction/overview.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of informe"
+              "title": "Outline of overview"
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -199,16 +198,41 @@
   },
   "active": "d9f8eeb3d81ac092",
   "lastOpenFiles": [
-    "appscript/README.md",
-    "Vault.md",
+    "agrovelas",
+    "wasiyuq/04-frontend/pages.md",
+    "wasiyuq/04-frontend/layouts.md",
     "wasiyuq/informe.md",
-    "informe.md",
-    "wasiyuq",
-    "untitled folder",
-    "appscript/Index.html",
-    "appscript/GestionHotelera.xlsx",
-    "appscript/Code.gs",
-    "appscript/task/Index.html",
-    "Tags"
+    "wasiyuq/05-modules/organizations.md",
+    "wasiyuq/04-frontend/styling.md",
+    "wasiyuq/README.md",
+    "wasiyuq/05-modules/users.md",
+    "wasiyuq/09-infrastructure/docker.md",
+    "wasiyuq/05-modules/pets.md",
+    "wasiyuq/07-admin/profile.md",
+    "wasiyuq/07-admin/roles.md",
+    "wasiyuq/03-backend/services.md",
+    "wasiyuq/04-frontend/composables.md",
+    "wasiyuq/10-testing/testing.md",
+    "wasiyuq/08-dashboard-team/overview.md",
+    "wasiyuq/07-admin/dashboard.md",
+    "wasiyuq/06-public/features.md",
+    "wasiyuq/06-public/pages.md",
+    "wasiyuq/04-frontend/structure.md",
+    "wasiyuq/05-modules/contact.md",
+    "wasiyuq/05-modules/auth.md",
+    "wasiyuq/05-modules/blog.md",
+    "wasiyuq/05-modules/events.md",
+    "wasiyuq/05-modules/followups.md",
+    "wasiyuq/05-modules/adoptions.md",
+    "wasiyuq/10-testing",
+    "wasiyuq/09-infrastructure",
+    "wasiyuq/08-dashboard-team",
+    "wasiyuq/07-admin",
+    "wasiyuq/06-public",
+    "wasiyuq/05-modules",
+    "wasiyuq/04-frontend",
+    "wasiyuq/03-backend",
+    "wasiyuq/02-setup",
+    "wasiyuq/01-introduction"
   ]
 }
