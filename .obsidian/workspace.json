@@ -33,14 +33,12 @@
             "id": "f88583919d138e21",
             "type": "leaf",
             "state": {
-              "type": "markdown",
+              "type": "mk-space",
               "state": {
-                "file": "agrovelas/Untitled.md",
-                "mode": "source",
-                "source": false
+                "path": "essalud/v1.0 empresarial"
               },
               "icon": "lucide-file",
-              "title": "Untitled"
+              "title": "v1.0 empresarial"
             }
           }
         ],
@@ -128,13 +126,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "agrovelas/Untitled.md",
+                "file": "essalud/v1.0 empresarial/v1.0 empresarial.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of Untitled"
+              "title": "Outline of v1.0 empresarial"
             }
           },
           {
@@ -143,7 +141,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "agrovelas/Untitled.md",
+                "file": "essalud/v1.0 empresarial/v1.0 empresarial.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -153,7 +151,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for Untitled"
+              "title": "Backlinks for v1.0 empresarial"
             }
           },
           {
@@ -231,8 +229,9 @@
       "giganttix:Open Giganttix": false
     }
   },
-  "active": "f88583919d138e21",
+  "active": "98b16ae725136249",
   "lastOpenFiles": [
+    "agrovelas/Untitled.md",
     "essalud/v1.0 empresarial/19_CICD.md",
     "essalud/v1.0 empresarial/15_FLUTTER_UIUX.md",
     "essalud/v1.0 empresarial/09_CASOS_USO_UML.md",
@@ -258,7 +257,6 @@
     "essalud/v1.0 empresarial/05_MICROSERVICIOS.md",
     "essalud/v1.0 empresarial/04_ARQUITECTURA_C4.md",
     "essalud/v1.0 empresarial/03_DESIGN_DETALLADO.md",
-    "essalud/v1.0 empresarial/02_SPEC_DETALLADO.md",
     "essalud/seguro-social-de-salud (2).pdf",
     "essalud/v1.0 empresarial",
     "essalud/v1.0",

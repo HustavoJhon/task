@@ -54,7 +54,8 @@
     "//appscript",
     "//essalud",
     "//essalud/essalud/v1",
-    "//agrovelas"
+    "//agrovelas",
+    "//essalud/essalud/v1.0 empresarial"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
