@@ -3,5 +3,7 @@
   "obsidian-git",
   "obsidian-kanban",
   "obsidian-icon-folder",
-  "make-md"
+  "make-md",
+  "advanced-pdf-export",
+  "giganttix"
 ]

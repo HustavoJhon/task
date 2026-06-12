@@ -41,7 +41,6 @@
     "/",
     "//sistemaCRUD",
     "//appscript/appscript/task",
-    "//wasiyuq",
     "//wasiyuq/wasiyuq/01-introduction",
     "//wasiyuq/wasiyuq/02-setup",
     "//wasiyuq/wasiyuq/03-backend",
@@ -51,7 +50,11 @@
     "//wasiyuq/wasiyuq/07-admin",
     "//wasiyuq/wasiyuq/08-dashboard-team",
     "//wasiyuq/wasiyuq/09-infrastructure",
-    "//wasiyuq/wasiyuq/10-testing"
+    "//wasiyuq/wasiyuq/10-testing",
+    "//appscript",
+    "//essalud",
+    "//essalud/essalud/v1",
+    "//essalud/essalud/v1.0 empresarial"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",
