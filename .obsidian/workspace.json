@@ -126,13 +126,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "essalud/v1.0 empresarial/v1.0 empresarial.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of v1.0 empresarial"
+              "title": "Outline"
             }
           },
           {
@@ -141,7 +140,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "essalud/v1.0 empresarial/v1.0 empresarial.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -151,7 +149,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for v1.0 empresarial"
+              "title": "Backlinks"
             }
           },
           {
@@ -231,6 +229,7 @@
   },
   "active": "98b16ae725136249",
   "lastOpenFiles": [
+    "essalud/v1.0 empresarial/v1.0 empresarial.md",
     "agrovelas/Untitled.md",
     "essalud/v1.0 empresarial/19_CICD.md",
     "essalud/v1.0 empresarial/15_FLUTTER_UIUX.md",
@@ -256,7 +255,6 @@
     "essalud/v1.0 empresarial/06_MODELO_ER.md",
     "essalud/v1.0 empresarial/05_MICROSERVICIOS.md",
     "essalud/v1.0 empresarial/04_ARQUITECTURA_C4.md",
-    "essalud/v1.0 empresarial/03_DESIGN_DETALLADO.md",
     "essalud/seguro-social-de-salud (2).pdf",
     "essalud/v1.0 empresarial",
     "essalud/v1.0",
