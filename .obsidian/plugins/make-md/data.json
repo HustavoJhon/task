@@ -52,10 +52,8 @@
     "//wasiyuq/wasiyuq/09-infrastructure",
     "//wasiyuq/wasiyuq/10-testing",
     "//appscript",
-    "//essalud",
     "//essalud/essalud/v1",
-    "//agrovelas",
-    "//essalud/essalud/v1.0 empresarial"
+    "//agrovelas"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

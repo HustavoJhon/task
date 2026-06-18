@@ -1,14 +1,14 @@
 {
   "main": {
-    "id": "c28b723c16bb2bf7",
+    "id": "6996fb015f530737",
     "type": "split",
     "children": [
       {
-        "id": "08fc2ba3e2b47d7e",
+        "id": "4e35e9b548126f9f",
         "type": "tabs",
         "children": [
           {
-            "id": "d9f8eeb3d81ac092",
+            "id": "edf440542e025527",
             "type": "leaf",
             "state": {
               "type": "mk-space",
@@ -18,45 +18,22 @@
               "icon": "lucide-file",
               "title": "essalud"
             }
-          },
-          {
-            "id": "d3f4d26b8f40d210",
-            "type": "leaf",
-            "state": {
-              "type": "task-gantt-view",
-              "state": {},
-              "icon": "gantt-chart",
-              "title": "Giganttix"
-            }
-          },
-          {
-            "id": "f88583919d138e21",
-            "type": "leaf",
-            "state": {
-              "type": "mk-space",
-              "state": {
-                "path": "essalud/v1.0 empresarial"
-              },
-              "icon": "lucide-file",
-              "title": "v1.0 empresarial"
-            }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
   },
   "left": {
-    "id": "a6596f5487c12959",
+    "id": "5e6859ce50651c8a",
     "type": "split",
     "children": [
       {
-        "id": "ab47a03809e04b17",
+        "id": "24f68ce429e48690",
         "type": "tabs",
         "children": [
           {
-            "id": "79ac53daf640029c",
+            "id": "5a9f1ad975262da5",
             "type": "leaf",
             "state": {
               "type": "file-explorer",
@@ -69,7 +46,7 @@
             }
           },
           {
-            "id": "acd0020b6eb1f7c4",
+            "id": "ba12a2432895851e",
             "type": "leaf",
             "state": {
               "type": "search",
@@ -86,7 +63,7 @@
             }
           },
           {
-            "id": "fd7c2a065bd5d7f3",
+            "id": "6cdeb243be492ca6",
             "type": "leaf",
             "state": {
               "type": "bookmarks",
@@ -96,7 +73,7 @@
             }
           },
           {
-            "id": "c7c9ad300a1866a2",
+            "id": "78fb62d8cb041a71",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -113,33 +90,20 @@
     "width": 300
   },
   "right": {
-    "id": "faccb66e069df29a",
+    "id": "e070cb8f98d0ab45",
     "type": "split",
     "children": [
       {
-        "id": "d93498cf2e24aed5",
+        "id": "fd7b2554fee086da",
         "type": "tabs",
         "children": [
           {
-            "id": "fc00097df52c1539",
-            "type": "leaf",
-            "state": {
-              "type": "outline",
-              "state": {
-                "followCursor": false,
-                "showSearch": false,
-                "searchQuery": ""
-              },
-              "icon": "lucide-list",
-              "title": "Outline"
-            }
-          },
-          {
-            "id": "08dc8a354e416e15",
+            "id": "af92ce3d81ec28e1",
             "type": "leaf",
             "state": {
               "type": "backlink",
               "state": {
+                "file": "essalud/seguro-social-de-salud (2).pdf",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -149,25 +113,25 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks"
+              "title": "Backlinks for seguro-social-de-salud (2)"
             }
           },
           {
-            "id": "59eab3fca20c3ebe",
+            "id": "94aa2ef330643093",
             "type": "leaf",
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "wasiyuq/01-introduction/overview.md",
+                "file": "essalud/seguro-social-de-salud (2).pdf",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from overview"
+              "title": "Outgoing links from seguro-social-de-salud (2)"
             }
           },
           {
-            "id": "8487d40f38fc6028",
+            "id": "f36f2b46fdf28cc7",
             "type": "leaf",
             "state": {
               "type": "tag",
@@ -182,7 +146,7 @@
             }
           },
           {
-            "id": "ff75b8b3edd959d4",
+            "id": "c26ec9735fc255ef",
             "type": "leaf",
             "state": {
               "type": "all-properties",
@@ -196,21 +160,26 @@
             }
           },
           {
-            "id": "3e1bc162072436dc",
+            "id": "55665eb867c57cda",
             "type": "leaf",
             "state": {
-              "type": "git-view",
-              "state": {},
-              "icon": "git-pull-request",
-              "title": "Source Control"
+              "type": "outline",
+              "state": {
+                "file": "essalud/seguro-social-de-salud (2).pdf",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of seguro-social-de-salud (2)"
             }
           }
-        ],
-        "currentTab": 5
+        ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -227,43 +196,9 @@
       "giganttix:Open Giganttix": false
     }
   },
-  "active": "98b16ae725136249",
+  "active": "edf440542e025527",
   "lastOpenFiles": [
-    "essalud/v1.0 empresarial/v1.0 empresarial.md",
-    "agrovelas/Untitled.md",
-    "essalud/v1.0 empresarial/19_CICD.md",
-    "essalud/v1.0 empresarial/15_FLUTTER_UIUX.md",
-    "essalud/v1.0 empresarial/09_CASOS_USO_UML.md",
-    "essalud/v1.0 empresarial/26_KANBAN_GANTT.md",
-    "essalud/v1.0 empresarial/00_INDICE.md",
-    "essalud/v1.0 empresarial/25_REQUISITOS_NO_FUNCIONALES.md",
-    "essalud/v1.0 empresarial/24_REQUISITOS_FUNCIONALES.md",
-    "essalud/v1.0 empresarial/23_MATRIZ_RIESGOS.md",
-    "essalud/v1.0 empresarial/22_ROADMAP.md",
-    "essalud/v1.0 empresarial/21_SEGURIDAD_AUDITORIA.md",
-    "essalud/v1.0 empresarial/20_OBSERVABILIDAD.md",
-    "essalud/v1.0 empresarial/18_OPENAPI_SWAGGER.md",
-    "essalud/v1.0 empresarial/17_DOCKER_COMPOSE.md",
-    "essalud/v1.0 empresarial/16_FLUTTER_ESTRUCTURA.md",
-    "essalud/v1.0 empresarial/14_DASHBOARD_ADMIN.md",
-    "essalud/v1.0 empresarial/13_VALIDACION_DOCUMENTOS.md",
-    "essalud/v1.0 empresarial/12_INGESTION_PDFS.md",
-    "essalud/v1.0 empresarial/11_RAG_QDRANT.md",
-    "essalud/v1.0 empresarial/10_DIAGRAMAS_SECUENCIA.md",
-    "essalud/v1.0 empresarial/08_HISTORIAS_USUARIO.md",
-    "essalud/v1.0 empresarial/07_ROLES_PERMISOS.md",
-    "essalud/v1.0 empresarial/06_MODELO_ER.md",
-    "essalud/v1.0 empresarial/05_MICROSERVICIOS.md",
-    "essalud/v1.0 empresarial/04_ARQUITECTURA_C4.md",
     "essalud/seguro-social-de-salud (2).pdf",
-    "essalud/v1.0 empresarial",
-    "essalud/v1.0",
-    "essalud",
-    "agrovelas",
-    "wasiyuq/10-testing",
-    "wasiyuq/09-infrastructure",
-    "wasiyuq/08-dashboard-team",
-    "wasiyuq/07-admin",
-    "wasiyuq/06-public"
+    "Tags"
   ]
 }
