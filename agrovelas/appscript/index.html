@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AGROVELAS - Gestion Ganadera Inteligente</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <style>
+    * { font-family: 'Inter', sans-serif; margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #f8fafc; }
+    .bg-hero { background: linear-gradient(135deg, #064e3b 0%, #047857 40%, #059669 70%, #10b981 100%); }
+    .bg-card { background: white; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 1px 2px rgba(0,0,0,0.06); transition: all 0.3s cubic-bezier(0.4,0,0.2,1); }
+    .bg-card:hover { box-shadow: 0 10px 40px -10px rgba(0,0,0,0.12); transform: translateY(-2px); }
+    .bg-gradient-card { background: linear-gradient(135deg, #059669, #10b981); }
+    .bg-gradient-card2 { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+    .bg-gradient-card3 { background: linear-gradient(135deg, #f59e0b, #d97706); }
+    .bg-gradient-card4 { background: linear-gradient(135deg, #ef4444, #dc2626); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideLeft { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes scaleIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+    @keyframes shimmer { 0% { background-position: -1000px 0; } 100% { background-position: 1000px 0; } }
+    .anim-fade-up { animation: fadeUp 0.6s ease-out; }
+    .anim-slide { animation: slideLeft 0.5s ease-out; }
+    .anim-scale { animation: scaleIn 0.3s ease-out; }
+    .shimmer { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 1000px 100%; animation: shimmer 2s infinite linear; }
+    .sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: 260px; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); border-right: 1px solid rgba(0,0,0,0.06); z-index: 50; transition: all 0.3s; overflow-y: auto; }
+    .sidebar a, .sidebar button { transition: all 0.2s; }
+    .sidebar a:hover, .sidebar button:hover { background: #f0fdf4; color: #059669; }
+    .sidebar a.active, .sidebar button.active { background: #f0fdf4; color: #059669; font-weight: 600; border-right: 3px solid #059669; }
+    @media (max-width: 768px) { .sidebar { transform: translateX(-100%); } .sidebar.open { transform: translateX(0); } }
+    .modal-bg { background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); }
+    input, select, textarea { transition: all 0.2s; border: 1.5px solid #e5e7eb; border-radius: 10px; padding: 10px 14px; width: 100%; font-size: 0.9rem; background: white; }
+    input:focus, select:focus, textarea:focus { border-color: #059669; box-shadow: 0 0 0 4px rgba(5,150,105,0.1); outline: none; }
+    .btn-primary { background: #059669; color: white; padding: 10px 24px; border-radius: 10px; font-weight: 600; transition: all 0.2s; }
+    .btn-primary:hover { background: #047857; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(5,150,105,0.3); }
+    .btn-secondary { background: white; color: #374151; border: 1.5px solid #e5e7eb; padding: 10px 24px; border-radius: 10px; font-weight: 500; transition: all 0.2s; }
+    .btn-secondary:hover { background: #f9fafb; border-color: #d1d5db; }
+    .badge { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+    .toast { position: fixed; top: 24px; right: 24px; z-index: 99999; padding: 14px 28px; border-radius: 12px; color: white; font-weight: 500; box-shadow: 0 10px 40px rgba(0,0,0,0.2); transition: all 0.5s cubic-bezier(0.68,-0.55,0.27,1.55); transform: translateX(120%); }
+    .toast.show { transform: translateX(0); }
+    .toast.success { background: linear-gradient(135deg, #059669, #10b981); }
+    .toast.error { background: linear-gradient(135deg, #dc2626, #ef4444); }
+    .toast.info { background: linear-gradient(135deg, #2563eb, #3b82f6); }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #d1d5db; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
+    .stat-number { font-size: 1.8rem; font-weight: 800; line-height: 1; }
+    .leaflet-container { border-radius: 12px; }
+  </style>
+</head>
+<body>
+
+<div id="toast" class="toast"></div>
+
+<!-- LANDING -->
+<div id="landing">
+  <div class="bg-hero min-h-screen text-white relative overflow-hidden">
+    <div class="absolute inset-0 opacity-10"><div class="absolute top-20 left-10 w-72 h-72 bg-white rounded-full blur-3xl"></div><div class="absolute bottom-20 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div></div>
+    <nav class="relative z-10 flex items-center justify-between px-6 py-5 max-w-7xl mx-auto">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white/20 backdrop-blur rounded-xl flex items-center justify-center font-extrabold text-lg border border-white/30">A</div>
+        <span class="text-2xl font-bold tracking-tight">AGROVELAS</span>
+      </div>
+      <div class="flex gap-3">
+        <button class="btn-login px-6 py-2.5 bg-white text-emerald-700 rounded-xl font-semibold text-sm hover:bg-emerald-50 shadow-lg transition-all">Iniciar Sesion</button>
+        <button class="btn-register px-6 py-2.5 border-2 border-white/30 text-white rounded-xl font-semibold text-sm hover:bg-white/10 transition-all">Registrarse</button>
+      </div>
+    </nav>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 py-16 md:py-24">
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div class="anim-fade-up">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-white/15 backdrop-blur rounded-full text-sm mb-6 border border-white/20">
+            <span class="w-2 h-2 bg-emerald-300 rounded-full animate-pulse"></span> Sistema de Gestion Ganadera v2.0
+          </div>
+          <h1 class="text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6">Gestiona tu ganado con <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-200 to-yellow-200">inteligencia</span></h1>
+          <p class="text-lg md:text-xl text-emerald-100/90 mb-8 leading-relaxed max-w-lg">Diseñado para productores altoandinos. Controla sanidad, reproduccion, trazabilidad y finanzas de tu ganado en un solo lugar.</p>
+          <div class="flex flex-wrap gap-4">
+            <button class="btn-login px-8 py-3.5 bg-white text-emerald-700 rounded-xl font-bold text-lg hover:bg-emerald-50 transition-all shadow-2xl"><i class="fas fa-rocket mr-2"></i>Comenzar ahora</button>
+            <a href="#features" class="px-8 py-3.5 border-2 border-white/30 text-white rounded-xl font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2"><i class="fas fa-play-circle"></i> Ver mas</a>
+          </div>
+        </div>
+        <div class="hidden md:block anim-slide">
+          <div class="bg-white/10 backdrop-blur rounded-3xl p-8 border border-white/20">
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-white/10 rounded-2xl p-5 text-center"><div class="text-3xl font-bold">22</div><div class="text-emerald-200 text-sm mt-1">Modulos</div></div>
+              <div class="bg-white/10 rounded-2xl p-5 text-center"><div class="text-3xl font-bold">10+</div><div class="text-emerald-200 text-sm mt-1">Animales</div></div>
+              <div class="bg-white/10 rounded-2xl p-5 text-center"><div class="text-3xl font-bold">IoT</div><div class="text-emerald-200 text-sm mt-1">GPS Live</div></div>
+              <div class="bg-white/10 rounded-2xl p-5 text-center"><div class="text-3xl font-bold">QR</div><div class="text-emerald-200 text-sm mt-1">Trazabilidad</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative z-10 border-t border-white/10 bg-white/5">
+      <div class="max-w-7xl mx-auto px-6 py-5 flex flex-wrap justify-between gap-4 text-sm">
+        <span class="text-emerald-200"><i class="fas fa-check-circle mr-2"></i>Registro digital</span>
+        <span class="text-emerald-200"><i class="fas fa-check-circle mr-2"></i>Sanidad y alertas</span>
+        <span class="text-emerald-200"><i class="fas fa-check-circle mr-2"></i>Reproduccion</span>
+        <span class="text-emerald-200"><i class="fas fa-check-circle mr-2"></i>Contabilidad</span>
+        <span class="text-emerald-200"><i class="fas fa-check-circle mr-2"></i>IoT y mapas</span>
+      </div>
+    </div>
+  </div>
+  <div id="features" class="py-20 max-w-7xl mx-auto px-6">
+    <div class="text-center mb-16">
+      <span class="text-emerald-600 font-semibold text-sm uppercase tracking-widest">Funcionalidades</span>
+      <h2 class="text-4xl font-bold text-gray-900 mt-3">Todo lo que necesitas</h2>
+      <p class="text-gray-500 mt-3 max-w-xl mx-auto">Una plataforma completa para la gestion ganadera moderna, desde los andes para el mundo.</p>
+    </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-emerald-100 rounded-2xl flex items-center justify-center text-2xl text-emerald-600 mb-5"><i class="fas fa-paw"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Animales</h3><p class="text-gray-500 text-sm leading-relaxed">Ficha completa con datos fenotipicos, geneticos, fotos y QR. Genealogia y trazabilidad total.</p></div>
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center text-2xl text-blue-600 mb-5"><i class="fas fa-syringe"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Sanidad</h3><p class="text-gray-500 text-sm leading-relaxed">Vacunas, desparasitaciones, diagnosticos. Alertas inteligentes y seguimiento veterinario.</p></div>
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-purple-100 rounded-2xl flex items-center justify-center text-2xl text-purple-600 mb-5"><i class="fas fa-dna"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Reproduccion</h3><p class="text-gray-500 text-sm leading-relaxed">Empadre, gestacion, partos. Fechas probables calculadas por especie.</p></div>
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-amber-100 rounded-2xl flex items-center justify-center text-2xl text-amber-600 mb-5"><i class="fas fa-map-marker-alt"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Mapa IoT</h3><p class="text-gray-500 text-sm leading-relaxed">Geolocalizacion con GPS y sensores. Visualiza todos tus animales en un mapa.</p></div>
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-2xl text-green-600 mb-5"><i class="fas fa-coins"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Contabilidad</h3><p class="text-gray-500 text-sm leading-relaxed">Ingresos, egresos, balance general. Control financiero completo del predio.</p></div>
+      <div class="bg-card p-8 hover:shadow-xl"><div class="w-14 h-14 bg-red-100 rounded-2xl flex items-center justify-center text-2xl text-red-600 mb-5"><i class="fas fa-calendar-check"></i></div><h3 class="text-xl font-bold text-gray-900 mb-3">Zootecnistas</h3><p class="text-gray-500 text-sm leading-relaxed">Directorio de especialistas con calificaciones, agenda de citas y horarios.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- AUTH MODAL -->
+<div id="authModal" class="fixed inset-0 modal-bg z-[60] hidden items-center justify-center p-4">
+  <div class="bg-white rounded-3xl shadow-2xl w-full max-w-sm p-8 anim-scale">
+    <div class="flex items-center justify-between mb-6">
+      <div><h2 id="authTitle" class="text-2xl font-bold text-gray-900">Bienvenido</h2><p id="authSub" class="text-gray-400 text-sm mt-1">Ingresa tus credenciales</p></div>
+      <button id="closeAuth" class="w-10 h-10 rounded-2xl hover:bg-gray-100 flex items-center justify-center text-gray-400 transition-all"><i class="fas fa-times"></i></button>
+    </div>
+    <div id="authBody"></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashContainer" class="hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="p-5 border-b border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-emerald-700 rounded-xl flex items-center justify-center text-white font-extrabold shadow-lg">A</div>
+        <div><div class="font-bold text-gray-900">AGROVELAS</div><div id="sidebarRol" class="text-xs text-gray-400"></div></div>
+      </div>
+    </div>
+    <nav class="p-3 space-y-0.5">
+      <button data-page="dashboard" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-th-large w-5"></i>Dashboard</button>
+      <button data-page="animales" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-paw w-5"></i>Animales</button>
+      <button data-page="sanidad" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-syringe w-5"></i>Sanidad</button>
+      <button data-page="reproduccion" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-dna w-5"></i>Reproduccion</button>
+      <button data-page="esquila" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-cut w-5"></i>Esquila</button>
+      <button data-page="iot" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-satellite-dish w-5"></i>Mapa IoT</button>
+      <button data-page="zootecnistas" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-user-md w-5"></i>Zootecnistas</button>
+      <button data-page="contabilidad" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-coins w-5"></i>Contabilidad</button>
+      <button data-page="alertas" class="nav-item w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-gray-500 hover:bg-emerald-50 hover:text-emerald-600 transition-all"><i class="fas fa-exclamation-triangle w-5"></i>Alertas</button>
+      <hr class="my-3 border-gray-100">
+      <button id="btnDemo" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-emerald-600 hover:bg-emerald-50 transition-all"><i class="fas fa-database w-5"></i>Cargar Datos Demo</button>
+      <button id="btnLogout" class="w-full flex items-center gap-3 px-4 py-2.5 rounded-xl text-sm text-red-500 hover:bg-red-50 transition-all"><i class="fas fa-sign-out-alt w-5"></i>Cerrar Sesion</button>
+    </nav>
+  </aside>
+  <div class="md:ml-[260px] min-h-screen">
+    <header class="bg-white border-b border-gray-100 sticky top-0 z-30">
+      <div class="flex items-center justify-between px-6 py-3">
+        <div class="flex items-center gap-3">
+          <button id="menuBtn" class="md:hidden w-10 h-10 rounded-xl hover:bg-gray-100 flex items-center justify-center text-gray-500"><i class="fas fa-bars"></i></button>
+          <div id="breadcrumb" class="text-sm text-gray-400">AGROVELAS / <span id="pageTitle" class="text-gray-700 font-medium">Dashboard</span></div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right text-xs"><p id="headerUser" class="font-medium text-gray-700"></p><p class="text-gray-400">Conectado</p></div>
+          <div class="w-9 h-9 bg-emerald-100 rounded-xl flex items-center justify-center text-emerald-600 font-bold text-sm">U</div>
+        </div>
+      </div>
+    </header>
+    <div class="p-6" id="pageContent">
+      <div class="flex items-center justify-center h-64">
+        <div class="text-center"><div class="w-12 h-12 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin mx-auto"></div><p class="text-gray-400 mt-4">Cargando...</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var U = null, charts = {};
+
+  function $(id) { return document.getElementById(id); }
+
+  function T(msg, tipo) {
+    var t = $('toast');
+    t.innerHTML = '<i class="fas fa-'+(tipo==='success'?'check-circle':tipo==='error'?'times-circle':'info-circle')+' mr-2"></i>'+msg;
+    t.className = 'toast ' + (tipo || 'info');
+    setTimeout(function(){ t.classList.add('show'); }, 20);
+    setTimeout(function(){ t.classList.remove('show'); }, 4000);
+  }
+
+  function destroyCharts() { for(var k in charts) { if(charts[k]) { charts[k].destroy(); } } charts = {}; }
+
+  // AUTH
+  function mostrarAuth(esReg) {
+    $('authModal').className = 'fixed inset-0 modal-bg z-[60] flex items-center justify-center p-4';
+    if (esReg) {
+      $('authTitle').textContent = 'Crear Cuenta'; $('authSub').textContent = 'Registrate en AGROVELAS';
+      $('authBody').innerHTML =
+        '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Nombre completo</label><input id="rNom" placeholder="Ej: Juan Quispe"></div>'+
+        '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Usuario o correo</label><input id="rLog" placeholder="ej: juan@agrovelas.pe"></div>'+
+        '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Contrasena</label><input id="rPass" type="password" placeholder="Min. 6 caracteres"></div>'+
+        '<button id="btnReg" class="w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-all shadow-lg"><i class="fas fa-user-plus mr-2"></i>Crear Cuenta</button>'+
+        '<p class="text-center text-sm text-gray-500">Ya tienes cuenta? <a href="#" id="toLogin" class="text-emerald-600 font-semibold hover:underline">Inicia sesion</a></p></div>';
+      $('btnReg').onclick = function(){
+        var nom=$('rNom').value,log=$('rLog').value,pass=$('rPass').value;
+        if(!nom||!log||!pass){T('Completa todos los campos','error');return;}
+        if(pass.length<6){T('La contrasena debe tener al menos 6 caracteres','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Cuenta creada exitosamente. Inicia sesion.','success');mostrarAuth(false);}).withFailureHandler(function(e){T('Error: '+e,'error');}).registrarUsuario({nombre_completo:nom,correo:log,usuario_login:log,contrasena:pass});
+      };
+      $('toLogin').onclick = function(e){e.preventDefault();mostrarAuth(false);};
+    } else {
+      $('authTitle').textContent = 'Bienvenido'; $('authSub').textContent = 'Inicia sesion en AGROVELAS';
+      $('authBody').innerHTML =
+        '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Usuario o correo</label><input id="lLog" placeholder="ej: juan"></div>'+
+        '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Contrasena</label><input id="lPass" type="password" placeholder="Tu contrasena"></div>'+
+        '<button id="btnLog" class="w-full py-3 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-all shadow-lg"><i class="fas fa-sign-in-alt mr-2"></i>Iniciar Sesion</button>'+
+        '<p class="text-center text-sm text-gray-500">No tienes cuenta? <a href="#" id="toReg" class="text-emerald-600 font-semibold hover:underline">Registrate aqui</a></p></div>';
+      $('btnLog').onclick = function(){
+        var log=$('lLog').value,pass=$('lPass').value;
+        if(!log||!pass){T('Completa todos los campos','error');return;}
+        google.script.run.withSuccessHandler(function(r){
+          if(r.error){T(r.error,'error');return;}
+          U=r.usuario; $('authModal').className='fixed inset-0 modal-bg z-[60] hidden items-center justify-center p-4';
+          $('landing').className='hidden'; $('dashContainer').className='flex';
+          $('sidebarRol').textContent=r.usuario.rol; $('headerUser').textContent=r.usuario.nombre;
+          irA('dashboard'); T('<i class="fas fa-check mr-2"></i>Bienvenido '+r.usuario.nombre,'success');
+        }).withFailureHandler(function(e){T('Error: '+e,'error');}).iniciarSesion(log,pass);
+      };
+      $('toReg').onclick = function(e){e.preventDefault();mostrarAuth(true);};
+    }
+  }
+
+  function irA(pagina) {
+    $('sidebar').classList.remove('open');
+    document.querySelectorAll('.nav-item').forEach(function(b){b.classList.toggle('active',b.dataset.page===pagina);});
+    $('pageTitle').textContent = pagina.charAt(0).toUpperCase() + pagina.slice(1);
+    destroyCharts();
+    switch(pagina) {
+      case 'dashboard': renderDash(); break;
+      case 'animales': renderAnimals(); break;
+      case 'sanidad': renderSanidad(); break;
+      case 'reproduccion': renderRepro(); break;
+      case 'esquila': renderEsquila(); break;
+      case 'iot': renderIoT(); break;
+      case 'zootecnistas': renderZoo(); break;
+      case 'contabilidad': renderContab(); break;
+      case 'alertas': renderAlertas(); break;
+    }
+  }
+
+  function renderDash() {
+    var el = $('pageContent');
+    el.innerHTML =
+      '<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Dashboard</h1><p class="text-gray-400 text-sm mt-1">Resumen general del sistema</p></div><div class="flex gap-2"><button onclick="irA(\'animales\')" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Animal</button></div></div>'+
+      '<div id="dashStats" class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">'+Array(4).fill('<div class="bg-card p-5 shimmer" style="height:110px;border-radius:16px;"></div>').join('')+'</div>'+
+      '<div class="grid md:grid-cols-3 gap-6 mb-8"><div class="md:col-span-2 bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-chart-bar text-emerald-600"></i>Distribucion de Animales</h3><div style="height:260px;"><canvas id="chartAnimals"></canvas></div></div><div class="bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-chart-pie text-blue-600"></i>Finanzas</h3><div style="height:260px;"><canvas id="chartFinance"></canvas></div></div></div>'+
+      '<div class="grid md:grid-cols-2 gap-6"><div class="bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-bell text-amber-500"></i>Notificaciones</h3><div id="dashNotifs" class="space-y-3"></div></div><div class="bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-calendar text-purple-500"></i>Proximas Actividades</h3><div id="dashActs" class="space-y-3"></div></div></div>';
+
+    google.script.run.withSuccessHandler(function(d){
+      var stats = $('dashStats');
+      var ing=0,egr=0;
+      if(d.contabilidad) d.contabilidad.forEach(function(m){var mo=parseFloat(m.monto)||0;if(m.tipo==='Ingreso')ing+=mo;else egr+=mo;});
+      stats.innerHTML =
+        '<div class="bg-gradient-card text-white p-5 rounded-2xl shadow-lg"><div class="flex items-center justify-between"><p class="text-emerald-100 text-xs uppercase tracking-wider">Animales</p><i class="fas fa-paw text-emerald-200/50 text-xl"></i></div><p class="stat-number mt-3">'+(d.totalAnimales||0)+'</p><p class="text-emerald-100/70 text-xs mt-1">Total registrados</p></div>'+
+        '<div class="bg-gradient-card2 text-white p-5 rounded-2xl shadow-lg"><div class="flex items-center justify-between"><p class="text-blue-100 text-xs uppercase tracking-wider">Alertas</p><i class="fas fa-exclamation-triangle text-blue-200/50 text-xl"></i></div><p class="stat-number mt-3">'+(d.alertas||0)+'</p><p class="text-blue-100/70 text-xs mt-1">En seguimiento</p></div>'+
+        '<div class="bg-gradient-card3 text-white p-5 rounded-2xl shadow-lg"><div class="flex items-center justify-between"><p class="text-amber-100 text-xs uppercase tracking-wider">Zootecnistas</p><i class="fas fa-user-md text-amber-200/50 text-xl"></i></div><p class="stat-number mt-3">'+((d.zootecnistas||[]).length)+'</p><p class="text-amber-100/70 text-xs mt-1">Disponibles</p></div>'+
+        '<div class="bg-gradient-card4 text-white p-5 rounded-2xl shadow-lg"><div class="flex items-center justify-between"><p class="text-red-100 text-xs uppercase tracking-wider">Balance</p><i class="fas fa-coins text-red-200/50 text-xl"></i></div><p class="stat-number mt-3">S/'+((ing-egr).toFixed(0))+'</p><p class="text-red-100/70 text-xs mt-1">Contabilidad</p></div>';
+
+      // chart animals
+      var ctx = document.getElementById('chartAnimals');
+      if(ctx){
+        var labels=[],vals=[],colores=[];
+        var agrup = {};
+        (d.animales||[]).forEach(function(a){agrup[a.especie]=(agrup[a.especie]||0)+1;});
+        for(var k in agrup){labels.push(k);vals.push(agrup[k]);colores.push('#059669','#3b82f6','#f59e0b','#8b5cf6','#ef4444');}
+        charts.animals = new Chart(ctx,{type:'bar',data:{labels:labels,datasets:[{label:'Animales',data:vals,backgroundColor:colores,borderRadius:6}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}}}});
+      }
+      // chart finance
+      var ctx2 = document.getElementById('chartFinance');
+      if(ctx2){
+        charts.finance = new Chart(ctx2,{type:'doughnut',data:{labels:['Ingresos','Egresos'],datasets:[{data:[ing,egr],backgroundColor:['#059669','#ef4444'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{padding:15}}}}});
+      }
+
+      // notifs
+      var nEl=$('dashNotifs');
+      var nots=d.notificaciones||[];
+      if(nots.length===0)nEl.innerHTML='<p class="text-gray-400 text-sm text-center py-6">Sin notificaciones</p>';
+      else {nEl.innerHTML='';
+        for(var i=0;i<Math.min(nots.length,5);i++){var n=nots[i];var c=n.prioridad==='Alta'?'bg-red-50 border-red-200 text-red-700':n.prioridad==='Media'?'bg-amber-50 border-amber-200 text-amber-700':'bg-blue-50 border-blue-200 text-blue-700';
+          nEl.innerHTML+='<div class="p-3 rounded-xl border '+c+'"><div class="flex items-start gap-2"><i class="fas fa-circle text-xs mt-1.5 shrink-0"></i><div><p class="text-sm font-medium">'+n.mensaje+'</p><p class="text-xs opacity-60 mt-0.5">'+n.fecha_generacion+'</p></div></div></div>';}}
+
+      // actividades
+      var aEl=$('dashActs');
+      var acts=d.actividades||[];
+      if(acts.length===0)aEl.innerHTML='<p class="text-gray-400 text-sm text-center py-6">Sin actividades</p>';
+      else {aEl.innerHTML='';
+        for(var i=0;i<Math.min(acts.length,5);i++){var ac=acts[i];
+          aEl.innerHTML+='<div class="flex items-center gap-4 p-3 rounded-xl bg-gray-50"><div class="w-10 h-10 rounded-xl bg-emerald-100 flex items-center justify-center text-emerald-600"><i class="fas fa-calendar-day"></i></div><div><p class="text-sm font-medium text-gray-900">'+ac.titulo+'</p><p class="text-xs text-gray-400">'+ac.fecha+'</p></div></div>';}}
+    }).withFailureHandler(function(e){$('dashStats').innerHTML='<p class="text-gray-400">Error: '+e+'</p>';}).obtenerDashboard();
+  }
+
+  function renderAnimals() {
+    var el = $('pageContent');
+    el.innerHTML =
+      '<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Animales</h1><p class="text-gray-400 text-sm mt-1">Registro y gestion de tu ganado</p></div><button id="btnNewAnimal" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Animal</button></div>'+
+      '<div id="animalFormContainer" class="hidden mb-6"></div>'+
+      '<div class="bg-card overflow-hidden"><div id="animalList" class="p-6"><div class="flex items-center justify-center h-32"><div class="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div></div></div></div>';
+    $('btnNewAnimal').onclick=function(){abrirFormAnimal(null);};
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('animalList');if(!c)return;
+      if(lista.length===0){c.innerHTML='<div class="text-center py-12"><i class="fas fa-paw text-5xl text-gray-200 mb-4"></i><p class="text-gray-400">No hay animales registrados</p><button onclick="document.getElementById(\'btnNewAnimal\').click()" class="btn-primary text-sm mt-4"><i class="fas fa-plus mr-2"></i>Crear primero</button></div>';return;}
+      var h='<div class="overflow-x-auto"><table class="w-full"><thead><tr class="border-b border-gray-100 text-gray-400 text-xs uppercase tracking-wider"><th class="text-left py-4 px-4 font-medium">ID</th><th class="text-left py-4 px-4 font-medium">Nombre</th><th class="text-left py-4 px-4 font-medium">Especie</th><th class="text-left py-4 px-4 font-medium">Raza</th><th class="text-left py-4 px-4 font-medium">Sexo</th><th class="text-left py-4 px-4 font-medium">Estado</th></tr></thead><tbody>';
+      for(var i=0;i<lista.length;i++){var a=lista[i];
+        h+='<tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-all"><td class="py-4 px-4 font-medium text-gray-900 text-sm">'+a.id_animal+'</td><td class="py-4 px-4 text-sm">'+(a.nombre||'<span class="text-gray-300">-</span>')+'</td><td class="py-4 px-4"><span class="badge bg-emerald-50 text-emerald-700">'+a.especie+'</span></td><td class="py-4 px-4 text-sm text-gray-600">'+a.raza+'</td><td class="py-4 px-4 text-sm">'+a.sexo+'</td><td class="py-4 px-4"><span class="badge '+(a.estado==='Activo'?'bg-green-100 text-green-700':'bg-red-100 text-red-700')+'">'+a.estado+'</span></td></tr>';}
+      h+='</tbody></table></div>';c.innerHTML=h;
+    }).withFailureHandler(function(e){var c=$('animalList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-8">Error: '+e+'</p>';}).obtenerRegistros('Animales',null);
+  }
+
+  var editAnimalId=null;
+
+  function abrirFormAnimal(datos){
+    editAnimalId=datos?datos.id_animal:null;
+    var f=document.createElement('div');f.id='animalModal';f.className='fixed inset-0 modal-bg z-[70] flex items-center justify-center p-4';
+    f.innerHTML='<div class="bg-white rounded-3xl shadow-2xl w-full max-w-2xl p-8 max-h-[90vh] overflow-y-auto anim-scale"><div class="flex items-center justify-between mb-6"><div><h3 class="text-xl font-bold text-gray-900">'+(editAnimalId?'Editar Animal':'Nuevo Animal')+'</h3><p class="text-sm text-gray-400 mt-1">Completa la informacion del animal</p></div><button class="close-modal w-10 h-10 rounded-2xl hover:bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-times"></i></button></div>'+
+      '<div class="grid md:grid-cols-2 gap-4"><div class="md:col-span-2"><label class="text-sm font-medium text-gray-600 mb-1.5 block">Especie *</label><select id="fEsp" class="bg-gray-50"><option>Alpaca</option><option>Llama</option><option>Oveja</option><option>Bovino</option><option>Caprino</option></select></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Sexo *</label><select id="fSexo" class="bg-gray-50"><option>Macho</option><option>Hembra</option></select></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Raza</label><input id="fRaza" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Nombre</label><input id="fNom" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha Nacimiento</label><input id="fNac" type="date" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Color</label><input id="fCol" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Padre</label><input id="fPad" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Madre</label><input id="fMad" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Linea Genetica</label><input id="fLin" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Procedencia</label><select id="fProc" class="bg-gray-50"><option>Nacido en predio</option><option>Comprado</option><option>Donado</option></select></div>'+
+      '<div class="md:col-span-2"><label class="text-sm font-medium text-gray-600 mb-1.5 block">Observaciones</label><textarea id="fObs" rows="2" class="bg-gray-50"></textarea></div></div>'+
+      '<div class="flex gap-3 mt-8"><button id="saveAnimal" class="btn-primary flex-1"><i class="fas fa-save mr-2"></i>'+(editAnimalId?'Actualizar':'Guardar Animal')+'</button><button class="close-modal btn-secondary flex-1">Cancelar</button></div></div>';
+    document.body.appendChild(f);
+    f.querySelectorAll('.close-modal').forEach(function(b){b.onclick=function(){f.remove();};});
+    $('saveAnimal').onclick=function(){
+      var dat={codigo_arete_rfid:'',nombre:$('fNom').value,especie:$('fEsp').value,raza:$('fRaza').value,sexo:$('fSexo').value,fecha_nacimiento:$('fNac').value,color_principal:$('fCol').value,id_padre:$('fPad').value,id_madre:$('fMad').value,linea_genetica:$('fLin').value,procedencia:$('fProc').value,id_lote_cabana:'',observaciones_generales:$('fObs').value,registrado_por:U.id_usuario,fenotipico:{},genotipico:{},foto_principal_url:'',qrContent:''};
+      if(!dat.especie||!dat.sexo){T('Completa especie y sexo','error');return;}
+      google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Animal registrado: '+r.id_animal,'success');f.remove();irA('animales');}).withFailureHandler(function(e){T('Error: '+e,'error');}).registrarAnimalCompleto(dat);
+    };
+    if(datos){
+      $('fNom').value=datos.nombre||'';$('fEsp').value=datos.especie||'Alpaca';$('fRaza').value=datos.raza||'';
+      $('fSexo').value=datos.sexo||'Macho';$('fNac').value=datos.fecha_nacimiento||'';$('fCol').value=datos.color_principal||'';
+      $('fPad').value=datos.id_padre||'';$('fMad').value=datos.id_madre||'';$('fLin').value=datos.linea_genetica||'';
+      $('fProc').value=datos.procedencia||'Nacido en predio';$('fObs').value=datos.observaciones_generales||'';
+    }
+  }
+
+  // Helper para renderizar tablas genericas
+  function renderTable(el, lista, cols, rowFn){
+    if(!el)return;
+    if(lista.length===0){el.innerHTML='<div class="text-center py-12"><i class="fas fa-inbox text-4xl text-gray-200 mb-3"></i><p class="text-gray-400">Sin datos</p></div>';return;}
+    var h='<div class="overflow-x-auto"><table class="w-full"><thead><tr class="border-b border-gray-100 text-gray-400 text-xs uppercase tracking-wider">';
+    for(var i=0;i<cols.length;i++)h+='<th class="text-left py-4 px-4 font-medium">'+cols[i]+'</th>';
+    h+='</tr></thead><tbody>';
+    for(var i=0;i<lista.length;i++){h+='<tr class="border-b border-gray-50 hover:bg-gray-50/50 transition-all">'+rowFn(lista[i],i)+'</tr>';}
+    h+='</tbody></table></div>';el.innerHTML=h;
+  }
+
+  function modalGenerico(titulo, contenido, actionFn){
+    var m=document.createElement('div');m.className='fixed inset-0 modal-bg z-[70] flex items-center justify-center p-4';
+    m.innerHTML='<div class="bg-white rounded-3xl shadow-2xl w-full max-w-md p-8 anim-scale"><div class="flex items-center justify-between mb-6"><div><h3 class="text-xl font-bold text-gray-900">'+titulo+'</h3><p class="text-sm text-gray-400 mt-1">Completa los datos</p></div><button class="close-modal w-10 h-10 rounded-2xl hover:bg-gray-100 flex items-center justify-center text-gray-400"><i class="fas fa-times"></i></button></div>'+
+      contenido+'<div class="flex gap-3 mt-6"><button id="modalSaveBtn" class="btn-primary flex-1"><i class="fas fa-save mr-2"></i>Guardar</button><button class="close-modal btn-secondary flex-1">Cancelar</button></div></div>';
+    document.body.appendChild(m);
+    m.querySelectorAll('.close-modal').forEach(function(b){b.onclick=function(){m.remove();};});
+    $('modalSaveBtn').onclick=function(){actionFn(m);};
+    return m;
+  }
+
+  function modalSan(){
+    var m=modalGenerico('Nuevo Registro Sanitario',
+      '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Animal *</label><input id="sAni" class="bg-gray-50"></div>'+
+      '<div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha *</label><input id="sFec" type="date" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Tipo</label><select id="sTip" class="bg-gray-50"><option>Vacunacion</option><option>Desparasitacion</option><option>Tratamiento</option><option>Diagnostico</option></select></div></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Producto</label><input id="sProd" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Estado</label><select id="sEst" class="bg-gray-50"><option>Aplicado</option><option>Programado</option></select></div></div>',
+      function(modal){
+        var d={id_animal:$('sAni').value,fecha:$('sFec').value,tipo_evento:$('sTip').value,nombre_producto:$('sProd').value,estado:$('sEst').value,veterinario_responsable:U.id_usuario};
+        if(!d.id_animal||!d.fecha){T('Completa ID animal y fecha','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Registro guardado','success');modal.remove();irA('sanidad');}).withFailureHandler(function(e){T('Error: '+e,'error');}).guardarRegistro('Sanidad',d);
+      });
+  }
+
+  function modalRep(){
+    modalGenerico('Nuevo Evento Reproductivo',
+      '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Hembra *</label><input id="rHem" class="bg-gray-50"></div>'+
+      '<div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha *</label><input id="rFec" type="date" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Tipo</label><select id="rTip" class="bg-gray-50"><option>Empadre/Monta</option><option>Inseminacion artificial</option><option>Diagnostico de gestion</option><option>Parto</option></select></div></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Resultado</label><select id="rRes" class="bg-gray-50"><option>Pendiente</option><option>Positivo</option><option>Negativo</option></select></div></div>',
+      function(modal){
+        var d={id_animal_hembra:$('rHem').value,tipo_evento:$('rTip').value,fecha_evento:$('rFec').value,resultado:$('rRes').value,responsable:U.id_usuario};
+        if(!d.id_animal_hembra||!d.fecha_evento){T('Completa los campos','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Evento guardado','success');modal.remove();irA('reproduccion');}).withFailureHandler(function(e){T('Error: '+e,'error');}).guardarRegistro('Reproduccion',d);
+      });
+  }
+
+  function modalEsq(){
+    modalGenerico('Nueva Esquila',
+      '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Animal *</label><input id="eAni" class="bg-gray-50"></div>'+
+      '<div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha *</label><input id="eFec" type="date" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Peso (kg)</label><input id="ePeso" type="number" step="0.01" class="bg-gray-50"></div></div>'+
+      '<div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Precio/kg S/</label><input id="ePre" type="number" step="0.01" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Comprador</label><input id="eComp" class="bg-gray-50"></div></div></div>',
+      function(modal){
+        var peso=parseFloat($('ePeso').value)||0,pre=parseFloat($('ePre').value)||0;
+        var d={id_animal:$('eAni').value,fecha_esquila:$('eFec').value,peso_vellon_kg:peso,precio_por_kg:pre,ingreso_total:(peso*pre).toFixed(2),comprador:$('eComp').value,responsable:U.id_usuario};
+        if(!d.id_animal||!d.fecha_esquila){T('Completa los campos','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Esquila registrada. S/ '+d.ingreso_total,'success');modal.remove();irA('esquila');}).withFailureHandler(function(e){T('Error: '+e,'error');}).guardarRegistro('Esquila',d);
+      });
+  }
+
+  function modalCtb(){
+    modalGenerico('Nuevo Movimiento Contable',
+      '<div class="space-y-4"><div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Tipo</label><select id="ctTip" class="bg-gray-50"><option>Ingreso</option><option>Egreso</option></select></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Monto S/ *</label><input id="ctMon" type="number" step="0.01" class="bg-gray-50"></div></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Categoria</label><input id="ctCat" class="bg-gray-50" placeholder="Ej: Venta de fibra"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha *</label><input id="ctFec" type="date" class="bg-gray-50"></div></div>',
+      function(modal){
+        var d={fecha:$('ctFec').value,tipo:$('ctTip').value,categoria:$('ctCat').value,monto:$('ctMon').value,descripcion:'',registrado_por:U.id_usuario};
+        if(!d.fecha||!d.monto){T('Completa fecha y monto','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Movimiento registrado','success');modal.remove();irA('contabilidad');}).withFailureHandler(function(e){T('Error: '+e,'error');}).guardarRegistro('Contabilidad',d);
+      });
+  }
+
+  function modalIoT(){
+    modalGenerico('Nuevo Dispositivo IoT',
+      '<div class="space-y-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">ID Animal *</label><input id="ioAni" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Tipo</label><select id="ioTip" class="bg-gray-50"><option>Collar GPS</option><option>Sensor LoRa</option><option>Caravana RFID</option></select></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Codigo</label><input id="ioCod" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Bateria %</label><input id="ioBat" type="number" class="bg-gray-50"></div></div>',
+      function(modal){
+        var d={id_animal:$('ioAni').value,tipo_dispositivo:$('ioTip').value,codigo_dispositivo:$('ioCod').value,estado_bateria_pct:$('ioBat').value||100,fecha_instalacion:new Date().toISOString().split('T')[0],estado:'Activo',ultima_latitud:'',ultima_longitud:''};
+        if(!d.id_animal){T('Ingresa el ID del animal','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Dispositivo registrado','success');modal.remove();irA('iot');}).withFailureHandler(function(e){T('Error: '+e,'error');}).guardarRegistro('IoT_Dispositivos',d);
+      });
+  }
+
+  function modalCita(zooId){
+    modalGenerico('Agendar Cita',
+      '<div class="space-y-4"><div class="grid grid-cols-2 gap-4"><div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Fecha *</label><input id="cFec" type="date" class="bg-gray-50"></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Hora *</label><input id="cHor" type="time" class="bg-gray-50"></div></div>'+
+      '<div><label class="text-sm font-medium text-gray-600 mb-1.5 block">Motivo *</label><textarea id="cMot" rows="3" class="bg-gray-50"></textarea></div></div>',
+      function(modal){
+        var d={id_zootecnista:zooId,id_usuario_solicitante:U.id_usuario,id_animal_relacionado:'',fecha:$('cFec').value,hora:$('cHor').value,motivo:$('cMot').value};
+        if(!d.fecha||!d.hora||!d.motivo){T('Completa todos los campos','error');return;}
+        google.script.run.withSuccessHandler(function(r){if(r.error){T(r.error,'error');return;}T('Cita agendada','success');modal.remove();}).withFailureHandler(function(e){T('Error: '+e,'error');}).agendarCita(d);
+      });
+  }
+
+  function renderSanidad(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Sanidad</h1><p class="text-gray-400 text-sm mt-1">Vacunas, tratamientos y controles</p></div><button onclick="modalSan()" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Registro</button></div><div class="bg-card overflow-hidden"><div id="sanList" class="p-6"><div class="flex items-center justify-center h-32"><div class="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div></div></div></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('sanList');if(!c)return;
+      renderTable(c,lista,['Fecha','Animal','Tipo','Producto','Estado'],function(s){
+        var ec=s.estado==='Aplicado'?'bg-green-100 text-green-700':s.estado==='Programado'?'bg-amber-100 text-amber-700':'bg-red-100 text-red-700';
+        return '<td class="py-4 px-4 text-sm">'+s.fecha+'</td><td class="py-4 px-4 text-sm font-medium">'+s.id_animal+'</td><td class="py-4 px-4 text-sm">'+s.tipo_evento+'</td><td class="py-4 px-4 text-sm">'+(s.nombre_producto||'-')+'</td><td class="py-4 px-4"><span class="badge '+ec+'">'+s.estado+'</span></td>';
+      });
+    }).withFailureHandler(function(e){var c=$('sanList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-8">Error</p>';}).obtenerRegistros('Sanidad',null);
+  }
+
+  function renderRepro(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Reproduccion</h1><p class="text-gray-400 text-sm mt-1">Control reproductivo del ganado</p></div><button onclick="modalRep()" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Evento</button></div><div class="bg-card overflow-hidden"><div id="repList" class="p-6"><div class="flex items-center justify-center h-32"><div class="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div></div></div></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('repList');if(!c)return;
+      renderTable(c,lista,['Fecha','Hembra','Evento','Resultado'],function(r){
+        var rc=r.resultado==='Positivo'?'bg-green-100 text-green-700':r.resultado==='Negativo'?'bg-red-100 text-red-700':'bg-amber-100 text-amber-700';
+        return '<td class="py-4 px-4 text-sm">'+r.fecha_evento+'</td><td class="py-4 px-4 text-sm font-medium">'+r.id_animal_hembra+'</td><td class="py-4 px-4 text-sm">'+r.tipo_evento+'</td><td class="py-4 px-4"><span class="badge '+rc+'">'+r.resultado+'</span></td>';
+      });
+    }).withFailureHandler(function(e){var c=$('repList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-8">Error</p>';}).obtenerRegistros('Reproduccion',null);
+  }
+
+  function renderEsquila(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Esquila</h1><p class="text-gray-400 text-sm mt-1">Registro de esquila (alpacas, llamas, ovejas)</p></div><button onclick="modalEsq()" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nueva Esquila</button></div><div class="bg-card overflow-hidden"><div id="esqList" class="p-6"><div class="flex items-center justify-center h-32"><div class="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div></div></div></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('esqList');if(!c)return;
+      renderTable(c,lista,['Fecha','Animal','Peso Vellon','Categoria','Ingreso'],function(e){
+        return '<td class="py-4 px-4 text-sm">'+e.fecha_esquila+'</td><td class="py-4 px-4 text-sm font-medium">'+e.id_animal+'</td><td class="py-4 px-4 text-sm">'+(e.peso_vellon_kg||'-')+' kg</td><td class="py-4 px-4 text-sm">'+(e.categoria_fibra||'-')+'</td><td class="py-4 px-4 text-sm font-semibold text-emerald-600">S/ '+(e.ingreso_total||'0.00')+'</td>';
+      });
+    }).withFailureHandler(function(e){var c=$('esqList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-8">Error</p>';}).obtenerRegistros('Esquila',null);
+  }
+
+  function renderZoo(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="mb-8"><h1 class="text-2xl font-bold text-gray-900">Zootecnistas</h1><p class="text-gray-400 text-sm mt-1">Directorio de especialistas y agenda de citas</p></div><div id="zooList" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('zooList');if(!c)return;
+      if(lista.length===0){c.innerHTML='<p class="text-gray-400 col-span-3 text-center py-12">No hay zootecnistas disponibles</p>';return;}
+      var h='';
+      for(var i=0;i<lista.length;i++){var z=lista[i];
+        var est='';for(var s=0;s<Math.round(parseFloat(z.calificacion_promedio)||0);s++)est+='<i class="fas fa-star text-amber-400 text-xs"></i>';
+        h+='<div class="bg-card p-6 hover:shadow-xl"><div class="flex items-center gap-4 mb-4"><div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-white font-bold text-lg shadow">Z</div><div><p class="font-bold text-gray-900">'+z.especialidad+'</p><p class="text-sm text-gray-400">'+(z.anios_experiencia||0)+' anos de experiencia</p></div></div>'+
+          '<div class="flex items-center gap-1 mb-3">'+est+' <span class="text-xs text-gray-400 ml-1">('+(z.numero_calificaciones||0)+')</span></div>'+
+          '<div class="space-y-1.5 text-sm text-gray-600 mb-4"><p><i class="fas fa-phone text-gray-300 w-5"></i>'+(z.telefono_contacto||'-')+'</p><p><i class="fas fa-map-marker-alt text-gray-300 w-5"></i>'+(z.zona_cobertura||'-')+'</p><p><i class="fas fa-money-bill-wave text-gray-300 w-5"></i>S/ '+(z.tarifa_consulta||0)+'</p></div>'+
+          '<button data-zoo="'+z.id_zootecnista+'" class="btn-cita w-full py-2.5 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white rounded-xl text-sm font-semibold hover:from-emerald-600 hover:to-emerald-700 transition-all shadow"><i class="fas fa-calendar-plus mr-2"></i>Agendar Cita</button></div>';
+      }
+      c.innerHTML=h;
+      c.querySelectorAll('.btn-cita').forEach(function(b){b.onclick=function(){modalCita(b.dataset.zoo);};});
+    }).withFailureHandler(function(e){var c=$('zooList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-10">Error</p>';}).obtenerRegistros('Zootecnistas',{estado:'Disponible'});
+  }
+
+  function renderContab(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Contabilidad</h1><p class="text-gray-400 text-sm mt-1">Ingresos, egresos y balance</p></div><button onclick="modalCtb()" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Movimiento</button></div><div id="ctbRes" class="grid md:grid-cols-3 gap-5 mb-8"></div><div class="bg-card overflow-hidden"><div id="ctbList" class="p-6"><div class="flex items-center justify-center h-32"><div class="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin"></div></div></div></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var ing=0,egr=0;
+      for(var i=0;i<lista.length;i++){var m=parseFloat(lista[i].monto)||0;if(lista[i].tipo==='Ingreso')ing+=m;else egr+=m;}
+      var r=$('ctbRes');if(r)r.innerHTML='<div class="bg-gradient-card text-white p-5 rounded-2xl shadow-lg"><p class="text-emerald-100 text-xs uppercase tracking-wider">Ingresos</p><p class="text-2xl font-bold mt-2">S/ '+ing.toFixed(2)+'</p></div><div class="bg-gradient-card4 text-white p-5 rounded-2xl shadow-lg"><p class="text-red-100 text-xs uppercase tracking-wider">Egresos</p><p class="text-2xl font-bold mt-2">S/ '+egr.toFixed(2)+'</p></div><div class="bg-gradient-card2 text-white p-5 rounded-2xl shadow-lg"><p class="text-blue-100 text-xs uppercase tracking-wider">Balance</p><p class="text-2xl font-bold mt-2 '+(ing-egr<0?'text-red-200':'text-white')+'">S/ '+(ing-egr).toFixed(2)+'</p></div>';
+      var c=$('ctbList');if(!c)return;
+      renderTable(c,lista,['Fecha','Tipo','Categoria','Monto'],function(ct){
+        var tc=ct.tipo==='Ingreso'?'bg-green-100 text-green-700':'bg-red-100 text-red-700';
+        return '<td class="py-4 px-4 text-sm">'+ct.fecha+'</td><td class="py-4 px-4"><span class="badge '+tc+'">'+ct.tipo+'</span></td><td class="py-4 px-4 text-sm">'+ct.categoria+'</td><td class="py-4 px-4 text-sm font-semibold">S/ '+parseFloat(ct.monto||0).toFixed(2)+'</td>';
+      });
+    }).withFailureHandler(function(e){var c=$('ctbList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-8">Error</p>';}).obtenerRegistros('Contabilidad',null);
+  }
+
+  function renderAlertas(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="mb-8"><h1 class="text-2xl font-bold text-gray-900">Alertas Sanitarias</h1><p class="text-gray-400 text-sm mt-1">Animales bajo seguimiento veterinario</p></div><div id="alertList" class="grid md:grid-cols-2 gap-6"></div>';
+    google.script.run.withSuccessHandler(function(lista){
+      var c=$('alertList');if(!c)return;
+      if(lista.length===0){c.innerHTML='<p class="text-gray-400 col-span-2 text-center py-12">Sin alertas activas</p>';return;}
+      var h='';
+      for(var i=0;i<lista.length;i++){var a=lista[i];
+        var bc={Baja:'border-l-blue-500',Media:'border-l-amber-500',Alta:'border-l-orange-500',Critica:'border-l-red-500'};
+        var tc={Baja:'bg-blue-50 text-blue-700',Media:'bg-amber-50 text-amber-700',Alta:'bg-orange-50 text-orange-700',Critica:'bg-red-50 text-red-700'};
+        h+='<div class="bg-card p-6 border-l-4 '+(bc[a.nivel_urgencia]||'border-l-amber-500')+' hover:shadow-xl"><div class="flex items-start justify-between mb-3"><div><p class="font-bold text-gray-900">'+a.id_animal+'</p><p class="text-xs text-gray-400 mt-0.5">'+a.fecha_reporte+'</p></div><span class="badge '+(tc[a.nivel_urgencia]||'bg-gray-100 text-gray-700')+'">'+a.nivel_urgencia+'</span></div>'+
+          '<p class="text-sm text-gray-600 mb-4">'+(a.sintomas||'Sin sintomas registrados')+'</p>'+
+          '<div class="flex items-center justify-between text-xs"><span class="badge bg-gray-100 text-gray-600">'+(a.estado||'Sin estado')+'</span><span class="text-gray-400">'+(a.zootecnista_asignado?'Z: '+a.zootecnista_asignado:'Sin asignar')+'</span></div></div>';}
+      c.innerHTML=h;
+    }).withFailureHandler(function(e){var c=$('alertList');if(c)c.innerHTML='<p class="text-gray-400 text-center py-10">Error</p>';}).obtenerRegistros('Animales_Alerta',{});
+  }
+
+  function renderIoT(){
+    var el=$('pageContent');
+    el.innerHTML='<div class="flex items-center justify-between mb-8"><div><h1 class="text-2xl font-bold text-gray-900">Dispositivos IoT</h1><p class="text-gray-400 text-sm mt-1">Monitoreo GPS de animales</p></div><button onclick="modalIoT()" class="btn-primary text-sm"><i class="fas fa-plus mr-2"></i>Nuevo Dispositivo</button></div>'+
+      '<div class="grid md:grid-cols-2 gap-6"><div class="bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-map-marked-alt text-emerald-600"></i>Mapa de Ubicaciones</h3><div id="mapIoT" style="height:350px;" class="rounded-xl bg-gray-100"></div></div>'+
+      '<div class="bg-card p-6"><h3 class="font-semibold text-gray-900 mb-4 flex items-center gap-2"><i class="fas fa-list text-blue-600"></i>Dispositivos Activos</h3><div id="iotList" class="space-y-3"></div></div></div>';
+    google.script.run.withSuccessHandler(function(disp){
+      var c=$('iotList');if(!c)return;
+      if(disp.length===0){c.innerHTML='<p class="text-gray-400 text-center py-8">Sin dispositivos activos</p>';return;}
+      var h='';
+      for(var i=0;i<disp.length;i++){var d=disp[i];var bt=d.estado_bateria_pct||0;
+        h+='<div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-gray-100 transition-all"><div><p class="font-medium text-sm text-gray-900">'+(d.animal_nombre||d.id_animal)+'</p><p class="text-xs text-gray-400 mt-0.5">'+d.tipo_dispositivo+' | '+d.codigo_dispositivo+'</p></div><div class="text-right"><span class="badge '+(bt>50?'bg-green-100 text-green-700':bt>20?'bg-amber-100 text-amber-700':'bg-red-100 text-red-700')+'">'+(bt||'?')+'%</span></div></div>';}
+      c.innerHTML=h;
+      // mapa
+      if(typeof L!=='undefined'){
+        var map=L.map('mapIoT').setView([-13.532,-71.967],10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'©OSM'}).addTo(map);
+        var bounds=[];
+        for(var i=0;i<disp.length;i++){var d=disp[i];
+          if(d.ultima_latitud&&d.ultima_longitud){
+            var lat=parseFloat(d.ultima_latitud),lng=parseFloat(d.ultima_longitud);
+            L.circleMarker([lat,lng],{radius:10,color:'#059669',fillColor:'#059669',fillOpacity:0.3}).addTo(map).bindPopup('<b>'+(d.animal_nombre||d.id_animal)+'</b><br>'+d.tipo_dispositivo);
+            bounds.push([lat,lng]);
+          }
+        }
+        if(bounds.length>0)map.fitBounds(bounds,{padding:[30,30]});
+      }
+    }).withFailureHandler(function(e){var c=$('iotList');if(c)c.innerHTML='<p class="text-gray-400">Error</p>';}).obtenerMapaIoT();
+  }
+
+  // EVENTOS
+  document.querySelectorAll('.btn-login').forEach(function(b){b.onclick=function(){mostrarAuth(false);};});
+  document.querySelectorAll('.btn-register').forEach(function(b){b.onclick=function(){mostrarAuth(true);};});
+  $('closeAuth').onclick=function(){$('authModal').className='fixed inset-0 modal-bg z-[60] hidden items-center justify-center p-4';};
+  $('authModal').onclick=function(e){if(e.target===$('authModal'))$('authModal').className='fixed inset-0 modal-bg z-[60] hidden items-center justify-center p-4';};
+  $('menuBtn').onclick=function(){$('sidebar').classList.toggle('open');};
+  $('btnLogout').onclick=function(){U=null;$('dashContainer').className='hidden';$('landing').className='';T('Sesion cerrada','info');};
+  $('btnDemo').onclick=function(){
+    if(!U){T('Inicia sesion primero','error');return;}
+    T('Cargando datos demo...','info');
+    google.script.run.withSuccessHandler(function(r){T(r,'success');irA('dashboard');}).withFailureHandler(function(e){T('Error: '+e,'error');}).poblarDatosDemo();
+  };
+  document.querySelectorAll('.nav-item').forEach(function(b){b.onclick=function(){irA(b.dataset.page);};});
+})();
+</script>
+</body>
+</html>
