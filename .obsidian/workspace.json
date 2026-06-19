@@ -11,12 +11,12 @@
             "id": "edf440542e025527",
             "type": "leaf",
             "state": {
-              "type": "mk-space",
+              "type": "mk-html-view",
               "state": {
-                "path": "essalud"
+                "file": "agrovelas/index.html"
               },
               "icon": "lucide-file",
-              "title": "essalud"
+              "title": "index.html"
             }
           }
         ]
@@ -196,8 +196,17 @@
       "giganttix:Open Giganttix": false
     }
   },
-  "active": "839baeee59891027",
+  "active": "edf440542e025527",
   "lastOpenFiles": [
+    "agrovelas/INIT_ONLY.gs",
+    "agrovelas/INIT_SHEETS.gs",
+    "agrovelas/AGROVELAS_Sheet_Schema.md",
+    "agrovelas/PROMPT_SDD.md",
+    "agrovelas/index.html",
+    "agrovelas/code.gs",
+    "agrovelas/Informe 1er agrovelas mk4.md",
+    "agrovelas/sheets.md",
+    "agrovelas/note.md",
     "agrovelas",
     "Untitled.md",
     "essalud/seguro-social-de-salud (2).pdf",
