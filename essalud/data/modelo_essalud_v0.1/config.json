@@ -1,0 +1,7 @@
+{
+  "nombre": "EsSalud Chatbot Model",
+  "version": "1.0",
+  "fecha_entrenamiento": "2026-06-13 18:31:58.662939",
+  "num_conocimientos": 204,
+  "modelo_embeddings": "paraphrase-multilingual-MiniLM-L12-v2"
+}
