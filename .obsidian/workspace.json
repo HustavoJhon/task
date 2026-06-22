@@ -4,19 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "4e35e9b548126f9f",
+        "id": "e4c64bf229e2ef0e",
         "type": "tabs",
         "children": [
           {
-            "id": "edf440542e025527",
+            "id": "4a220c2643623d15",
             "type": "leaf",
             "state": {
-              "type": "mk-html-view",
+              "type": "markdown",
               "state": {
-                "file": "agrovelas/index.html"
+                "file": "wasiyuq/FERIA_PROYECTOS_2026_RESUMEN.md",
+                "mode": "source",
+                "source": false
               },
               "icon": "lucide-file",
-              "title": "index.html"
+              "title": "FERIA_PROYECTOS_2026_RESUMEN"
             }
           }
         ]
@@ -73,7 +75,7 @@
             }
           },
           {
-            "id": "839baeee59891027",
+            "id": "82fd4779ee1fb2fa",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -87,7 +89,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "e070cb8f98d0ab45",
@@ -196,8 +199,11 @@
       "giganttix:Open Giganttix": false
     }
   },
-  "active": "edf440542e025527",
+  "active": "4a220c2643623d15",
   "lastOpenFiles": [
+    "wasiyuq/FERIA_ANALISIS.md",
+    "wasiyuq/informe.md",
+    "wasiyuq/FERIA_PROYECTOS_2026_RESUMEN.md",
     "agrovelas/INIT_ONLY.gs",
     "agrovelas/INIT_SHEETS.gs",
     "agrovelas/AGROVELAS_Sheet_Schema.md",
