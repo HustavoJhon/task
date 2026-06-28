@@ -2,7 +2,7 @@
 
 ## 1. Visión General
 
-La Plataforma EsSalud v1.0 Laravel se construye como un **monolito modular** sobre Laravel 11 con PHP 8.3. Esta arquitectura organiza el código en módulos independientes dentro del mismo proyecto, manteniendo separación de responsabilidades sin la complejidad operativa de los microservicios. El frontend usa Blade + Livewire 3 + Tailwind CSS, y el panel administrativo usa Filament 3.
+La Plataforma EsSalud v1.0 Laravel PWA se construye como un **monolito modular** sobre Laravel 11 con PHP 8.3. Esta arquitectura organiza el código en módulos independientes dentro del mismo proyecto, manteniendo separación de responsabilidades sin la complejidad operativa de los microservicios. El frontend usa Blade + Livewire 3 + Tailwind CSS, y el panel administrativo usa Filament 3.
 
 ### 1.1 Principios Arquitectónicos
 

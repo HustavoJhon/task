@@ -1,4 +1,4 @@
-# SPEC DETALLADO - Especificación Funcional EsSalud v1.0 Laravel
+# SPEC DETALLADO - Especificación Funcional EsSalud v1.0 Laravel PWA
 
 ## 1. Descripción del Sistema
 

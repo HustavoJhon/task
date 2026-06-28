@@ -1,4 +1,4 @@
-# EsSalud - Plataforma de Atención al Asegurado v1.0 (Laravel)
+# EsSalud - Plataforma Web de Atención al Asegurado v1.0 (Laravel PWA)
 
 ## ¿Qué es?
 
@@ -212,6 +212,24 @@ EsSalud-Laravel/
 | **SUPV** | Supervisor | Dashboard KPIs, asignar trámites, reportes |
 | **GESDOC** | Gestor documental | Subir documentos oficiales, gestionar FAQ |
 | **SADM** | Administrador del sistema | Todo: usuarios, roles, configuración |
+
+---
+
+## Documentación completa
+
+Este directorio contiene **27 archivos de documentación técnica** detallada:
+
+| Archivo | Descripción |
+|---|---|
+| `00_INDICE.md` | Índice maestro con navegación centralizada |
+| `01_PLAN_DETALLADO.md` | Plan estratégico con roadmap de 22 semanas |
+| `02_SPEC_DETALLADO.md` | Especificación funcional con 50+ funcionalidades |
+| `03_DESIGN_DETALLADO.md` | UI/UX Blade + Livewire: componentes y wireframes |
+| `04_ARQUITECTURA.md` | Arquitectura monolito modular Laravel 11 con modelo C4 |
+| `05_MODULOS.md` | Módulos Laravel: estructura, providers, dependencias |
+| ... | ... y 21 documentos más |
+
+Consulta `00_INDICE.md` para la navegación completa.
 
 ---
 

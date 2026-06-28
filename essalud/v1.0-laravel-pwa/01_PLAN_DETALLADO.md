@@ -1,4 +1,4 @@
-# PLAN DETALLADO - Plataforma Inteligente EsSalud v1.0 Laravel
+# PLAN DETALLADO - Plataforma Inteligente EsSalud v1.0 Laravel PWA
 
 ## 1. Resumen Ejecutivo
 

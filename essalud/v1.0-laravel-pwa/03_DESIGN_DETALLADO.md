@@ -1,4 +1,4 @@
-# DESIGN DETALLADO - UI/UX Blade + Livewire EsSalud v1.0 Laravel
+# DESIGN DETALLADO - UI/UX Blade + Livewire EsSalud v1.0 Laravel PWA
 
 ## 1. Sistema de Diseño
 

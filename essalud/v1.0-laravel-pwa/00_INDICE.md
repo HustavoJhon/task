@@ -1,11 +1,11 @@
-# 📋 ÍNDICE MAESTRO - Plataforma Inteligente EsSalud v1.0 Laravel
+# 📋 ÍNDICE MAESTRO - Plataforma Inteligente EsSalud v1.0 Laravel PWA
 
 ## 📊 Resumen del Proyecto
 
 | Aspecto | Detalle |
 |--------|---------|
 | **Proyecto** | Plataforma Inteligente de Atención al Asegurado EsSalud |
-| **Versión** | 1.0 Laravel |
+| **Versión** | 1.0 Laravel PWA |
 | **Estado** | Documentación Técnica Completa |
 | **Fecha de Inicio** | Julio 2026 |
 | **Fecha de Conclusión Prevista** | Diciembre 2026 |
