@@ -1,4 +1,4 @@
-# DIAGRAMAS DE SECUENCIA - EsSalud v1.0 Empresarial
+# DIAGRAMAS DE SECUENCIA - EsSalud v1.0 Flutter App
 
 ## DS-01: Login Completo
 

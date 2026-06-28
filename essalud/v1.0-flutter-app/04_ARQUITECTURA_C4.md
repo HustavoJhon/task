@@ -1,4 +1,4 @@
-# ARQUITECTURA C4 - Plataforma EsSalud v1.0 Empresarial
+# ARQUITECTURA C4 - Plataforma EsSalud v1.0 Flutter App
 
 ## Introducción
 

@@ -1,4 +1,4 @@
-# ROADMAP - Hoja de Ruta EsSalud v1.0 Empresarial
+# ROADMAP - Hoja de Ruta EsSalud v1.0 Flutter App
 
 ## 1. Diagrama Gantt
 

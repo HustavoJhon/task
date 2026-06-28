@@ -1,4 +1,4 @@
-# DASHBOARD ADMINISTRATIVO - Panel de Gestión EsSalud v1.0 Empresarial
+# DASHBOARD ADMINISTRATIVO - Panel de Gestión EsSalud v1.0 Flutter App
 
 ## 1. Módulos del Dashboard
 

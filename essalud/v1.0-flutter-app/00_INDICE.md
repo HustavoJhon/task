@@ -1,11 +1,11 @@
-# 📋 ÍNDICE MAESTRO - Plataforma Inteligente EsSalud v1.0
+# 📋 ÍNDICE MAESTRO - Plataforma Inteligente EsSalud v1.0 Flutter App
 
 ## 📊 Resumen del Proyecto
 
 | Aspecto | Detalle |
 |--------|---------|
 | **Proyecto** | Plataforma Inteligente de Atención al Asegurado EsSalud |
-| **Versión** | 1.0 Empresarial |
+| **Versión** | 1.0 Flutter App |
 | **Estado** | Documentación Técnica Completa |
 | **Fecha de Inicio** | Enero 2025 |
 | **Fecha de Conclusión Prevista** | Diciembre 2025 |

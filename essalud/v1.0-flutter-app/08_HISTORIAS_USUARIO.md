@@ -1,4 +1,4 @@
-# HISTORIAS DE USUARIO - EsSalud v1.0 Empresarial
+# HISTORIAS DE USUARIO - EsSalud v1.0 Flutter App
 
 ## 1. Módulo: Autenticación y Cuenta
 

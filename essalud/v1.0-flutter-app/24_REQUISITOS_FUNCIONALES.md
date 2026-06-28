@@ -1,4 +1,4 @@
-# REQUISITOS FUNCIONALES - EsSalud v1.0 Empresarial
+# REQUISITOS FUNCIONALES - EsSalud v1.0 Flutter App
 
 ## 1. Catálogo de Requisitos Funcionales
 

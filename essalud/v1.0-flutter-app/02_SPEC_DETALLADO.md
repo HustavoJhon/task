@@ -1,4 +1,4 @@
-# SPEC DETALLADO - Especificación Funcional EsSalud v1.0 Empresarial
+# SPEC DETALLADO - Especificación Funcional EsSalud v1.0 Flutter App
 
 ## 1. Descripción del Sistema
 

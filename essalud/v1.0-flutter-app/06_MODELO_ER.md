@@ -1,4 +1,4 @@
-# MODELO ENTIDAD-RELACIÓN - EsSalud v1.0 Empresarial
+# MODELO ENTIDAD-RELACIÓN - EsSalud v1.0 Flutter App
 
 ## 1. Diagrama ER General
 

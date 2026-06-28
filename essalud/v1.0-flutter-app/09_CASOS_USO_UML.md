@@ -1,4 +1,4 @@
-# CASOS DE USO UML - EsSalud v1.0 Empresarial
+# CASOS DE USO UML - EsSalud v1.0 Flutter App
 
 ## 1. Diagrama General de Casos de Uso
 

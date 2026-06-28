@@ -1,4 +1,4 @@
-# ROLES Y PERMISOS - RBAC EsSalud v1.0 Empresarial
+# ROLES Y PERMISOS - RBAC EsSalud v1.0 Flutter App
 
 ## 1. Descripción de Roles
 

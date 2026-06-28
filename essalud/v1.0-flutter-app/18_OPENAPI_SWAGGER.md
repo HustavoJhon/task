@@ -1,4 +1,4 @@
-# OPENAPI / SWAGGER - Especificación de API EsSalud v1.0 Empresarial
+# OPENAPI / SWAGGER - Especificación de API EsSalud v1.0 Flutter App
 
 ## 1. Convenciones de la API
 

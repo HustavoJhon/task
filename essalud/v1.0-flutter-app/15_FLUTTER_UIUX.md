@@ -1,4 +1,4 @@
-# FLUTTER UI/UX - Diseño de Interfaz EsSalud v1.0 Empresarial
+# FLUTTER UI/UX - Diseño de Interfaz EsSalud v1.0 Flutter App
 
 ## 1. Design Tokens
 

@@ -1,4 +1,4 @@
-# PLAN DETALLADO - Plataforma Inteligente EsSalud v1.0 Empresarial
+# PLAN DETALLADO - Plataforma Inteligente EsSalud v1.0 Flutter App
 
 ## 1. Resumen Ejecutivo
 

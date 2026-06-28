@@ -1,4 +1,4 @@
-# SEGURIDAD Y AUDITORÍA - EsSalud v1.0 Empresarial
+# SEGURIDAD Y AUDITORÍA - EsSalud v1.0 Flutter App
 
 ## 1. OWASP Top 10 — Mitigación
 

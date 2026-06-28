@@ -1,4 +1,4 @@
-# MATRIZ DE RIESGOS - EsSalud v1.0 Empresarial
+# MATRIZ DE RIESGOS - EsSalud v1.0 Flutter App
 
 ## 1. Identificación de Riesgos
 

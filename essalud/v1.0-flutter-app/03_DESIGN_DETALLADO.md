@@ -1,4 +1,4 @@
-# DESIGN DETALLADO - Diseño Arquitectónico EsSalud v1.0 Empresarial
+# DESIGN DETALLADO - Diseño Arquitectónico EsSalud v1.0 Flutter App
 
 ## 1. Diagrama de Arquitectura General
 

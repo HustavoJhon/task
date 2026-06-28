@@ -1,4 +1,4 @@
-# REQUISITOS NO FUNCIONALES - EsSalud v1.0 Empresarial
+# REQUISITOS NO FUNCIONALES - EsSalud v1.0 Flutter App
 
 ## 1. Rendimiento
 
