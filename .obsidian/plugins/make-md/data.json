@@ -38,14 +38,14 @@
   "vaultSelector": true,
   "deleteFileOption": "trash",
   "expandedSpaces": [
-    "/",
     "//sistemaCRUD",
     "//appscript/appscript/task",
     "//appscript",
     "//essalud/essalud/v1",
+    "//essalud",
+    "//essalud/essalud/v1.0 empresarial",
     "//agrovelas",
-    "//essalud/essalud/v1.0-laravel",
-    "//essalud"
+    "/"
   ],
   "expandFolderOnClick": true,
   "spacesFolder": "Tags",

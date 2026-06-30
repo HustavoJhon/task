@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "wasiyuq/FERIA_PROYECTOS_2026_RESUMEN.md",
+                "file": "essalud/pipeline_ocr.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "FERIA_PROYECTOS_2026_RESUMEN"
+              "title": "pipeline_ocr"
             }
           }
         ]
@@ -75,7 +75,7 @@
             }
           },
           {
-            "id": "82fd4779ee1fb2fa",
+            "id": "b5dde018e1eee932",
             "type": "leaf",
             "state": {
               "type": "mk-path-view",
@@ -89,8 +89,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "e070cb8f98d0ab45",
@@ -201,9 +200,23 @@
   },
   "active": "4a220c2643623d15",
   "lastOpenFiles": [
-    "wasiyuq/FERIA_ANALISIS.md",
+    "essalud/guia_exposicion.md",
+    "essalud/pipeline_ocr.md",
     "wasiyuq/informe.md",
+    "wasiyuq/informe_seguridad_pentest.md",
+    "Vault.md",
+    "agrovelas/Scrum.md",
+    "Untitled Kanban.md",
+    "agrovelas/Untitled Kanban.md",
+    "essalud/v1.0 empresarial/06_MODELO_ER.md",
+    "essalud/v1.0 empresarial/05_MICROSERVICIOS.md",
+    "essalud/v1.0 empresarial/04_ARQUITECTURA_C4.md",
+    "essalud/v1.0 empresarial/03_DESIGN_DETALLADO.md",
+    "essalud/v1.0 empresarial/02_SPEC_DETALLADO.md",
+    "essalud/v1.0 empresarial/01_PLAN_DETALLADO.md",
+    "essalud/v1.0 empresarial/00_INDICE.md",
     "wasiyuq/FERIA_PROYECTOS_2026_RESUMEN.md",
+    "wasiyuq/FERIA_ANALISIS.md",
     "agrovelas/INIT_ONLY.gs",
     "agrovelas/INIT_SHEETS.gs",
     "agrovelas/AGROVELAS_Sheet_Schema.md",
