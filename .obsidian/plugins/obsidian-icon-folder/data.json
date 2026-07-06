@@ -5,7 +5,13 @@
     "fontSize": 16,
     "emojiStyle": "native",
     "iconColor": null,
-    "recentlyUsedIcons": [],
+    "recentlyUsedIcons": [
+      "LiReceiptText",
+      "LiPackageSearch",
+      "LiDog",
+      "LiFolderClock",
+      "LiBot"
+    ],
     "recentlyUsedIconsSize": 5,
     "rules": [],
     "extraMargin": {
@@ -27,5 +33,25 @@
     "lucideIconPackType": "native",
     "debugMode": false,
     "useInternalPlugins": false
+  },
+  "essalud": {
+    "iconName": "LiBot",
+    "iconColor": "#01346a"
+  },
+  "agrovelas": {
+    "iconName": "LiFolderClock",
+    "iconColor": "#117104"
+  },
+  "wasiyuq": {
+    "iconName": "LiDog",
+    "iconColor": "#024b3e"
+  },
+  "ruwaqmaqui": {
+    "iconName": "LiPackageSearch",
+    "iconColor": "#772408"
+  },
+  "README.md": {
+    "iconName": "LiReceiptText",
+    "iconColor": "#adaf08"
   }
 }
