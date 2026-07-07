@@ -2,16 +2,16 @@
 
 ## Requisitos Mínimos
 
-| Componente | Requisito |
-|---|---|
-| **PHP** | 8.3+ (8.4 recomendado) |
-| **Composer** | 2.x |
-| **Node.js** | 20+ |
-| **NPM** | 10+ |
-| **Docker** | 24+ (para entorno completo) |
-| **Docker Compose** | v2+ |
+| Componente           | Requisito                                  |
+| -------------------- | ------------------------------------------ |
+| **PHP**              | 8.3+ (8.4 recomendado)                     |
+| **Composer**         | 2.x                                        |
+| **Node.js**          | 20+                                        |
+| **NPM**              | 10+                                        |
+| **Docker**           | 24+ (para entorno completo)                |
+| **Docker Compose**   | v2+                                        |
 | **Espacio en disco** | 2 GB (imágenes Docker) + 500 MB (proyecto) |
-| **RAM** | 4 GB mínimo (8 GB recomendado) |
+| **RAM**              | 4 GB mínimo (8 GB recomendado)             |
 
 ## Extensiones PHP Requeridas
 

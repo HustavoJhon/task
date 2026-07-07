@@ -59,25 +59,25 @@ DB_USERNAME=sa
 | timestamps | created_at, updated_at |
 
 ### `pets`
-| Columna | Tipo |
-|---|---|
-| id | bigint PK |
-| team_id | bigint FK |
-| name | varchar(255) |
-| slug | varchar(255) UNIQUE |
-| species | varchar(50) |
-| breed | varchar(255) nullable |
-| age_years | int default 0 |
-| age_months | int default 0 |
-| gender | varchar(20) nullable |
-| size | varchar(20) nullable |
-| color | varchar(100) nullable |
-| description | text nullable |
-| medical_notes | text nullable |
-| status | varchar(50) default 'available' |
-| photos | text (JSON array) nullable |
-| deleted_at | datetime nullable |
-| timestamps | created_at, updated_at |
+| Columna       | Tipo                            |
+| ------------- | ------------------------------- |
+| id            | bigint PK                       |
+| team_id       | bigint FK                       |
+| name          | varchar(255)                    |
+| slug          | varchar(255) UNIQUE             |
+| species       | varchar(50)                     |
+| breed         | varchar(255) nullable           |
+| age_years     | int default 0                   |
+| age_months    | int default 0                   |
+| gender        | varchar(20) nullable            |
+| size          | varchar(20) nullable            |
+| color         | varchar(100) nullable           |
+| description   | text nullable                   |
+| medical_notes | text nullable                   |
+| status        | varchar(50) default 'available' |
+| photos        | text (JSON array) nullable      |
+| deleted_at    | datetime nullable               |
+| timestamps    | created_at, updated_at          |
 
 ### `teams`
 | Columna | Tipo |
