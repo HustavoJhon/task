@@ -53,5 +53,9 @@
   "README.md": {
     "iconName": "LiReceiptText",
     "iconColor": "#adaf08"
-  }
+  },
+  "ruwaqmaqui/README.md": "LiReceiptText",
+  "essalud/README.md": "LiReceiptText",
+  "agrovelas/README.md": "LiReceiptText",
+  "wasiyuq/README.md": "LiReceiptText"
 }

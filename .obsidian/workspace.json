@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "README.md",
+                "file": "agrovelas/README.md",
                 "mode": "source",
                 "source": false
               },
@@ -78,7 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 307.5
   },
   "right": {
     "id": "e070cb8f98d0ab45",
@@ -164,13 +164,23 @@
               "icon": "lucide-list",
               "title": "Outline of seguro-social-de-salud (2)"
             }
+          },
+          {
+            "id": "a4d18aa9c74d7dc3",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 5
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -187,39 +197,44 @@
       "obsidian-kanban:Create new board": false
     }
   },
-  "active": "5a9f1ad975262da5",
+  "active": "86104935412dcf61",
   "lastOpenFiles": [
-    "ruwaqmaqui",
-    "Vault.md",
-    "README.md",
-    "Untitled Kanban.md",
-    "essalud/pipeline_ocr.md",
-    "Tags",
-    "essalud/guia_exposicion.md",
+    "wasiyuq/09-infrastructure/docker.md",
+    "wasiyuq/FERIA_ANALISIS.md",
     "wasiyuq/informe.md",
     "wasiyuq/informe_seguridad_pentest.md",
-    "agrovelas/Scrum.md",
-    "agrovelas/Untitled Kanban.md",
-    "essalud/v1.0 empresarial/06_MODELO_ER.md",
-    "essalud/v1.0 empresarial/05_MICROSERVICIOS.md",
-    "essalud/v1.0 empresarial/04_ARQUITECTURA_C4.md",
-    "essalud/v1.0 empresarial/03_DESIGN_DETALLADO.md",
-    "essalud/v1.0 empresarial/02_SPEC_DETALLADO.md",
-    "essalud/v1.0 empresarial/01_PLAN_DETALLADO.md",
-    "essalud/v1.0 empresarial/00_INDICE.md",
+    "wasiyuq/README.md",
     "wasiyuq/FERIA_PROYECTOS_2026_RESUMEN.md",
-    "wasiyuq/FERIA_ANALISIS.md",
+    "wasiyuq/08-dashboard-team/overview.md",
+    "wasiyuq/05-modules/pets.md",
+    "wasiyuq/03-backend/structure.md",
+    "wasiyuq/03-backend/services.md",
+    "wasiyuq/03-backend/routes.md",
+    "wasiyuq/03-backend/models.md",
+    "wasiyuq/03-backend/middleware.md",
+    "wasiyuq/03-backend/database.md",
+    "wasiyuq/03-backend/controllers.md",
+    "wasiyuq/02-setup/requirements.md",
+    "wasiyuq/02-setup/installation.md",
+    "wasiyuq/02-setup/docker.md",
+    "wasiyuq/01-introduction/overview.md",
+    "wasiyuq/01-introduction/architecture.md",
+    "wasiyuq/pentest_wasiyuq_report.md",
+    "agrovelas/README.md",
+    "essalud/README.md",
+    "essalud/README.md~",
+    "ruwaqmaqui/README.md~",
+    "ruwaqmaqui/README.md",
+    "wasiyuq/07-admin/dashboard.md",
+    "wasiyuq/10-testing/testing.md",
+    "wasiyuq/capture_pentestin.jpeg",
+    "essalud/seguro-social-de-salud (2).pdf",
+    "ruwaqmaqui",
+    "Tags",
     "agrovelas/INIT_ONLY.gs",
     "agrovelas/INIT_SHEETS.gs",
-    "agrovelas/AGROVELAS_Sheet_Schema.md",
-    "agrovelas/PROMPT_SDD.md",
     "agrovelas/index.html",
     "agrovelas/code.gs",
-    "agrovelas/Informe 1er agrovelas mk4.md",
-    "agrovelas/sheets.md",
-    "agrovelas/note.md",
-    "agrovelas",
-    "Untitled.md",
-    "essalud/seguro-social-de-salud (2).pdf"
+    "agrovelas"
   ]
 }
