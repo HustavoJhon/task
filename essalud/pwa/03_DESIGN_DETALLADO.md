@@ -33,11 +33,11 @@
 
 ### 2.1 Colores Primarios
 
-| Nombre | Hex | Tailwind Class | Uso |
-|--------|-----|----------------|-----|
+| Nombre           | Hex       | Tailwind Class | Uso                                       |
+| ---------------- | --------- | -------------- | ----------------------------------------- |
 | **Azul EsSalud** | `#004B87` | `blue-essalud` | Header, sidebar, botones primarios, links |
-| **Azul Claro** | `#0066B3` | `blue-light` | Hover states, elementos interactivos |
-| **Azul Fondo** | `#E8F0FE` | `blue-50` | Fondos de secciones, cards info |
+| **Azul Claro**   | `#0066B3` | `blue-light`   | Hover states, elementos interactivos      |
+| **Azul Fondo**   | `#E8F0FE` | `blue-50`      | Fondos de secciones, cards info           |
 
 ### 2.2 Colores Secundarios
 

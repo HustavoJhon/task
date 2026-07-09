@@ -17,21 +17,21 @@ usuario. Utiliza **Laravel Sanctum** para autenticación por tokens (SPA + API i
 **Spatie/laravel-permission** para roles y permisos.
 
 ### Rutas
-| Método | URI | Nombre | Descripción |
-|--------|-----|--------|-------------|
-| GET | `/registro` | `register` | Formulario de registro |
-| POST | `/registro` | `register.store` | Procesar registro nuevo |
-| GET | `/login` | `login` | Formulario de inicio de sesión |
-| POST | `/login` | `login.attempt` | Autenticar credenciales |
-| POST | `/logout` | `logout` | Cerrar sesión |
-| POST | `/api/token/refresh` | `token.refresh` | Refrescar token Sanctum |
-| GET | `/recuperar-password` | `password.request` | Solicitar enlace de recuperación |
-| POST | `/recuperar-password` | `password.email` | Enviar enlace por email |
-| GET | `/reset-password/{token}` | `password.reset` | Formulario de nueva contraseña |
-| POST | `/reset-password` | `password.update` | Actualizar contraseña |
-| GET | `/email/verify` | `verification.notice` | Aviso de verificación pendiente |
-| GET | `/email/verify/{id}/{hash}` | `verification.verify` | Verificar email |
-| POST | `/email/verification-notification` | `verification.send` | Reenviar verificación |
+| Método | URI                                | Nombre                | Descripción                      |
+| ------ | ---------------------------------- | --------------------- | -------------------------------- |
+| GET    | `/registro`                        | `register`            | Formulario de registro           |
+| POST   | `/registro`                        | `register.store`      | Procesar registro nuevo          |
+| GET    | `/login`                           | `login`               | Formulario de inicio de sesión   |
+| POST   | `/login`                           | `login.attempt`       | Autenticar credenciales          |
+| POST   | `/logout`                          | `logout`              | Cerrar sesión                    |
+| POST   | `/api/token/refresh`               | `token.refresh`       | Refrescar token Sanctum          |
+| GET    | `/recuperar-password`              | `password.request`    | Solicitar enlace de recuperación |
+| POST   | `/recuperar-password`              | `password.email`      | Enviar enlace por email          |
+| GET    | `/reset-password/{token}`          | `password.reset`      | Formulario de nueva contraseña   |
+| POST   | `/reset-password`                  | `password.update`     | Actualizar contraseña            |
+| GET    | `/email/verify`                    | `verification.notice` | Aviso de verificación pendiente  |
+| GET    | `/email/verify/{id}/{hash}`        | `verification.verify` | Verificar email                  |
+| POST   | `/email/verification-notification` | `verification.send`   | Reenviar verificación            |
 
 ### Controladores
 - `App\Http\Controllers\Auth\RegisterController` — Registro con validación de DNI único.

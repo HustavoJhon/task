@@ -90,14 +90,14 @@ Plataforma web integral construida como **monolito modular Laravel 11** que comb
 ### Fase 2: Auth y Gestión de Usuarios (Semanas 3-4)
 **Objetivo:** Sistema de autenticación completo con roles y permisos.
 
-| Semana | Actividades | Entregables | Responsable |
-|--------|-------------|-------------|-------------|
-| 3 | Laravel Sanctum SPA auth (login, registro, logout) | API auth funcional | Laravel Dev |
-| 3 | Recuperación de contraseña + verificación email | Flujo de recuperación completo | Laravel Dev |
-| 3 | Spatie Permissions: roles ASEG, OPER, SUPV, GESDOC, SADM | RBAC implementado | Laravel Dev |
-| 4 | Livewire componentes auth (LoginForm, RegisterForm) | Pantallas auth con Blade | Laravel Dev |
-| 4 | Perfil de usuario + cambio de contraseña | Gestión de perfil funcional | Laravel Dev |
-| 4 | Middleware de autorización por rol + rate limiting | Seguridad de rutas | Laravel Dev |
+| Semana | Actividades                                              | Entregables                    | Responsable |
+| ------ | -------------------------------------------------------- | ------------------------------ | ----------- |
+| 3      | Laravel Sanctum SPA auth (login, registro, logout)       | API auth funcional             | Laravel Dev |
+| 3      | Recuperación de contraseña + verificación email          | Flujo de recuperación completo | Laravel Dev |
+| 3      | Spatie Permissions: roles ASEG, OPER, SUPV, GESDOC, SADM | RBAC implementado              | Laravel Dev |
+| 4      | Livewire componentes auth (LoginForm, RegisterForm)      | Pantallas auth con Blade       | Laravel Dev |
+| 4      | Perfil de usuario + cambio de contraseña                 | Gestión de perfil funcional    | Laravel Dev |
+| 4      | Middleware de autorización por rol + rate limiting       | Seguridad de rutas             | Laravel Dev |
 
 **Duración:** 14 días
 **Dependencias:** Fase 1 completada
@@ -153,15 +153,16 @@ Plataforma web integral construida como **monolito modular Laravel 11** que comb
 ### Fase 6: Dashboard Admin (Semanas 14-16)
 **Objetivo:** Panel administrativo con Filament 3 para gestión y monitoreo.
 
-| Semana | Actividades | Entregables | Responsable |
-|--------|-------------|-------------|-------------|
-| 14 | Instalación y configuración Filament 3 | Panel /admin funcional | Laravel Dev |
-| 14 | Filament Resources: UserResource, ProcedureResource, DocumentResource | CRUDs administrativos | Laravel Dev |
-| 15 | Filament Resources: NewsResource, FaqResource, RoleResource | Gestión de contenido | Laravel Dev |
-| 15 | Filament Widgets: KPIs, gráficos de trámites, usuarios activos | Dashboard widgets | Laravel Dev |
-| 16 | Reportes exportables: PDF/CSV/Excel con Laravel Excel | Exportación de reportes | Laravel Dev |
-| 16 | Auditoría: Laravel Auditable + logs de acciones | Sistema de auditoría | Laravel Dev |
-| 16 | Alertas configurables: umbrales, notificaciones | Alertas administrativas | Laravel Dev |
+| Semana | Actividades                                                           | Entregables             | Responsable |
+| ------ | --------------------------------------------------------------------- | ----------------------- | ----------- |
+| 14     | Instalación y configuración Filament 3                                | Panel /admin funcional  | Laravel Dev |
+| 14     | Filament Resources: UserResource, ProcedureResource, DocumentResource | CRUDs administrativos   | Laravel Dev |
+| 15     | Filament Resources: NewsResource, FaqResource, RoleResource           | Gestión de contenido    | Laravel Dev |
+| 15     | Filament Widgets: KPIs, gráficos de trámites, usuarios activos        | Dashboard widgets       | Laravel Dev |
+| 16     | Reportes exportables: PDF/CSV/Excel con Laravel Excel                 | Exportación de reportes | Laravel Dev |
+| 16     | Auditoría: Laravel Auditable + logs de acciones                       | Sistema de auditoría    | Laravel Dev |
+| 16     | Alertas configurables: umbrales, notificaciones                       | Alertas administrativas | Laravel Dev |
+|        |                                                                       |                         |             |
 
 **Duración:** 21 días
 **Dependencias:** Fases 3, 4, 5 completadas
@@ -169,15 +170,15 @@ Plataforma web integral construida como **monolito modular Laravel 11** que comb
 ### Fase 7: Hardening y Pruebas (Semanas 17-19)
 **Objetivo:** Seguridad, testing exhaustivo y optimización de rendimiento.
 
-| Semana | Actividad | Métrica | Responsable |
-|--------|-----------|---------|-------------|
-| 17 | Auditoría de seguridad: OWASP Top 10, CSRF, XSS, SQLi | 0 vulnerabilidades críticas | Laravel Dev |
-| 17 | SAST con PHPStan nivel 8 + Larastan | 0 errores | Laravel Dev |
-| 18 | Tests de integración con Pest: Auth, Trámites, Documentos | >80% cobertura | QA |
-| 18 | Tests de feature: Flujos completos de usuario | Todos los flujos cubiertos | QA |
-| 19 | Performance tuning: eager loading, query optimization, Redis cache | p95 <300ms | Laravel Dev |
-| 19 | Laravel Octane (opcional, evaluar necesidad) | Benchmark de rendimiento | Laravel Dev |
-| 19 | Optimización de assets: Vite + Tailwind purge + lazy loading | Lighthouse score >90 | Laravel Dev |
+| Semana | Actividad                                                          | Métrica                     | Responsable |
+| ------ | ------------------------------------------------------------------ | --------------------------- | ----------- |
+| 17     | Auditoría de seguridad: OWASP Top 10, CSRF, XSS, SQLi              | 0 vulnerabilidades críticas | Laravel Dev |
+| 17     | SAST con PHPStan nivel 8 + Larastan                                | 0 errores                   | Laravel Dev |
+| 18     | Tests de integración con Pest: Auth, Trámites, Documentos          | >80% cobertura              | QA          |
+| 18     | Tests de feature: Flujos completos de usuario                      | Todos los flujos cubiertos  | QA          |
+| 19     | Performance tuning: eager loading, query optimization, Redis cache | p95 <300ms                  | Laravel Dev |
+| 19     | Laravel Octane (opcional, evaluar necesidad)                       | Benchmark de rendimiento    | Laravel Dev |
+| 19     | Optimización de assets: Vite + Tailwind purge + lazy loading       | Lighthouse score >90        | Laravel Dev |
 
 **Duración:** 21 días
 **Dependencias:** Todas las fases previas
@@ -297,13 +298,13 @@ Plataforma web integral construida como **monolito modular Laravel 11** que comb
 
 ### 9.2 Riesgos de Proyecto
 
-| Riesgo | Probabilidad | Impacto | Contingencia |
-|--------|-------------|---------|--------------|
-| Rotación de personal | Baja | Alto | Documentación exhaustiva de código + onboarding doc |
-| Cambio de alcance | Media | Medio | Comité de cambios + buffer de 1 sprint por fase |
-| Retraso en dependencias externas | Media | Alto | Buffer de 1 semana por fase |
-| Subestimación de esfuerzo en Livewire | Media | Medio | Sprint 0 de refactor + buffer 20% en estimaciones |
-| Problemas de integración con APIs legacy | Alta | Medio | Early spike en semana 2 para validar integraciones |
+| Riesgo                                   | Probabilidad | Impacto | Contingencia                                        |
+| ---------------------------------------- | ------------ | ------- | --------------------------------------------------- |
+| Rotación de personal                     | Baja         | Alto    | Documentación exhaustiva de código + onboarding doc |
+| Cambio de alcance                        | Media        | Medio   | Comité de cambios + buffer de 1 sprint por fase     |
+| Retraso en dependencias externas         | Media        | Alto    | Buffer de 1 semana por fase                         |
+| Subestimación de esfuerzo en Livewire    | Media        | Medio   | Sprint 0 de refactor + buffer 20% en estimaciones   |
+| Problemas de integración con APIs legacy | Alta         | Medio   | Early spike en semana 2 para validar integraciones  |
 
 ---
 
